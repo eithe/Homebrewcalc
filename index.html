@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free, simple brewing calculators for every day use.">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <title>Homebrew Calc - Hops, Yeast, Malt, Equipment Calculators</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css?ver=1.6" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".sidebar" data-offset="100">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="pull-left navbar-logo"><img src="/logo.png" style="width:16px;height:16px;" height="16" width="16"></a>
+        <a href="/" class="navbar-brand" >Homebrew Calc</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="#Overview">Overview</a></li>
+          <li><a href="#StrikeTemp">Strike Temperature</a></li>
+          <li><a href="#MashInfusion">Mash Infusion</a></li>
+          <li><a href="#WaterHeating">Water Heating</a></li>
+          <li><a href="#DilutionWater">Dilution</a></li>
+          <li><a href="#MashSize">Mash Size</a></li>
+          <li><a href="#TunSize">Brew Kettle Size</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="#HopsAlpha">Hops Alpha Adjustment</a></li>
+          <li><a href="#HopStorage">Hops Storage</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="#AlcoholCalc">Alcohol</a></li>
+          <li><a href="#HydroTemp">Hydrometer Temp. Adj.</a></li>
+          <li><a href="#RefractAlcohol">Refractometer Alcohol Adj.</a></li>
+          <li><a href="#BrixGravity">Brix &lt;-&gt; Gravity</a></li>
+          <li><a href="#ColorCalc">Color</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="#Misc">Misc</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="hbcAnchor" id="Overview">
+          <h1>Free, simple homebrew calculators for every day use.</h1>
+          <p>A collection of the hops, yeast, malt and equipment calculators I use for brewing. If you have any suggestions you can drop me a line on on post at eirikh no.<br/>
+            <br/></p>
+            <div class="hbcUnitSelectors">
+              <h2>Units</h2>
+                <button type="button" class="btn btn-success btn-lg hbcUnitBtn hbcMetricBtn">Metric</button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default btn-lg hbcUnitBtn hbcUSBtn">US</button>
+            </div>
+          </div>
+          <div class="hbcAnchor" id="StrikeTemp">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Strike Temperature Calculator</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates the temperature your strike water needs to be in order to hit the desired mash-in temperature. Please note that the calculator assumes that no heat will be lost to the surroundings. You can minimize this error by pre-heating the tun. Based on <a href="http://howtobrew.com/book/section-3/the-methods-of-mashing/calculations-for-boiling-water-additions">Palmer, in How to Brew</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Grain Weight</span>
+                        <input type="number" step="0.01" class="form-control hbcKiloInput" id="STGrainWeightInput" placeholder="0 kg"/>
+                        <span class="input-group-addon hbcWeightAddon hbcKiloAddon">kg</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Grain Temp</span>
+                        <input type="number" step="0.1" class="form-control" id="STGrainTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Mash Liquid Volume</span>
+                        <input type="number" step="0.1" class="form-control" id="STMashVolumeInput" placeholder="0 L"/>
+                        <span class="input-group-addon hbcVolumeAddon">L </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Target Mash Temp</span>
+                        <input type="number" step="0.1" class="form-control" id="STMashTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-2">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA hbcTempOutput" id="STCalcValue"> --- </span> <span class="hbcTempUnitName">&deg;C</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-8">
+                        <button type="button" class="btn btn-default btn-lg" id="STCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <small></small>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="MashInfusion">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Mash Infusion / Boiling water additions</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates the amount of hot/boiling water you need to add to hit your next mash/rest temperature. Please note that the calculator assumes that no heat will be lost to the surroundings. Based on <a href="http://howtobrew.com/book/section-3/the-methods-of-mashing/calculations-for-boiling-water-additions">Palmer, in How to Brew</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Grain Weight</span>
+                        <input type="number" step="0.01" class="form-control hbcKiloInput" id="MIGrainWeightInput" placeholder="0 kg"/>
+                        <span class="input-group-addon hbcWeightAddon hbcKiloAddon">kg</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Current Water Volume</span>
+                        <input type="number" step="0.1" class="form-control" id="MIWaterVolumeInput" placeholder="0 L"/>
+                        <span class="input-group-addon hbcVolumeAddon">L </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Current Mash Temp</span>
+                        <input type="number" step="0.1" class="form-control" id="MICurrentTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Target Mash Temp</span>
+                        <input type="number" step="0.1" class="form-control" id="MITargetTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon" title="The actual temperature of the hot/boiling water you are adding">Hot Water Temp</span>
+                        <input type="number" step="0.1" class="form-control" id="MIWaterTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-2">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA hbcVolumeOutput" id="MICalcValue"> --- </span> <span class="hbcVolumeUnitName">L</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-8">
+                        <button type="button" class="btn btn-default btn-lg" id="MICalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <small></small>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="WaterHeating">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Water Heating Calculator</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates the time it takes to heat water. Please note that the calculator assumes that no heat will be lost to the surroundings.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Initial Water Temp</span>
+                        <input type="number" step="0.1" class="form-control" id="WHInitialTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Target Water Temp</span>
+                        <input type="number" step="0.1" class="form-control" id="WHDesiredTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Water Volume</span>
+                        <input type="number" step="0.1" class="form-control" id="WHVolumeInput" placeholder="0 L"/>
+                        <span class="input-group-addon hbcVolumeAddon">L </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Heating Power</span>
+                        <input type="number" step="10" class="form-control" id="WHPowerInput" placeholder="0 W"/>
+                        <span class="input-group-addon hbcPowerAddon">W</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="WHCalcValue"> --- </span> minutes
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="WHCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="DilutionWater">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Dilution Calculator</strong> <span class="text-muted">(Find water addition - target gravity known)</span></div>
+              <div class="panel-body">
+                <p>
+                  Calculates the amount of water you need to add to get your wort to a desired gravity.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Initial Wort Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="DLWInitialGravityInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Desired Wort Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="DLWDesiredGravityInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Wort Volume</span>
+                        <input type="number" step="0.1" class="form-control" id="DLWVolumeInput" placeholder="0 L"/>
+                        <span class="input-group-addon hbcVolumeAddon">L </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="DLWCalcValue"> --- </span> <span class="hbcVolumeUnitName">L</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="DLWCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="DilutionWater2">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Dilution Calculator</strong> <span class="text-muted">(Find final gravity - water addition known)</span></div>
+              <div class="panel-body">
+                <p>
+                  Calculates the final gravity you get when adding x amount of water to your wort.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Initial Wort Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="DLGInitialGravityInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Wort Volume</span>
+                        <input type="number" step="0.1" class="form-control" id="DLGInitVolumeInput" placeholder="0 L"/>
+                        <span class="input-group-addon hbcVolumeAddon">L </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Target Volume</span>
+                        <input type="number" step="0.1" class="form-control" id="DLGTargetVolumeInput" placeholder="0 L"/>
+                        <span class="input-group-addon hbcVolumeAddon">L </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="DLGCalcValue"> --- </span> FG
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="DLGCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="MashSize">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Mash Size Calculator</strong></div>
+              <div class="panel-body">
+                <p>
+                  Calculates the volume of your grains and strike water so you can check if your tun is large enough.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Grain Weight</span>
+                        <input type="number" step="0.001" class="form-control hbcKiloInput" id="MSGrainWeightInput" placeholder="0 kg"/>
+                        <span class="input-group-addon hbcWeightAddon hbcKiloAddon" title="Weight"><strong>Kg</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Mash Tickness</span>
+                        <input type="number" step="0.001" class="form-control" id="MSMashTicknessInput" placeholder="1.xxx kg/liter"/>
+                        <span class="input-group-addon hbcRadioAddon hbcKiloLiterRatio" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="MSCalcValue"> --- </span> <span class="hbcVolumeUnitName">L</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="MSCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <br/><br/><br/>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="TunSize">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Brew Kettle Size Calculator</strong></div>
+              <div class="panel-body">
+                <p>
+                  Calculates the volume of your brew tun/kettle.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Kettle Diameter</span>
+                        <input type="number" step="0.001" class="form-control" id="TSVDiameterInput" placeholder="0 cm"/>
+                        <span class="input-group-addon hbcLengthAddon" title="Length"><strong>cm</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Kettle Height</span>
+                        <input type="number" step="0.001" class="form-control" id="TSVHeightInput" placeholder="0 cm"/>
+                        <span class="input-group-addon hbcLengthAddon" title="Length"><strong>cm</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon" title="Adjustments due to equipment in your kettle and/or its bottom radius">Dead space / rd. corner adj.</span>
+                        <input type="number" step="0.001" class="form-control" id="TSDeadSpaceInput" placeholder="0 %"/>
+                        <span class="input-group-addon hbcPercentAddon" title="Percent"><strong>%</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="TSVCalcValue"> --- </span> <span class="hbcVolumeUnitName">L</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="TSVCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="HopsAlpha">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Hops Alpha Adjustment</strong></div>
+              <div class="panel-body">
+                <p>
+                  Helps you adjust the amount of hops if the alpha acid differs between the receipe and your actual hops.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Recipe Hops Weight</span>
+                        <input type="number" step="0.5" class="form-control hbcGramInput" id="HAHopsWeightInput" placeholder="0 g"/>
+                        <span class="input-group-addon hbcWeightAddon hbcGramAddon" title="Weight">g</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Recipe Hops Alpha</span>
+                        <input type="number" step="0.1" class="form-control" id="HAHopsAlphaInput" placeholder="0 %"/>
+                        <span class="input-group-addon hbcPercentAddon">% </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Actual Hops Alpha</span>
+                        <input type="number" step="0.1" class="form-control" id="HAHopsActualAlphaInput" placeholder="0 %"/>
+                        <span class="input-group-addon hbcPercentAddon">% </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="HACalcValue"> --- </span> <span class="hbcGramUnitName">g</a>
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="HACalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="HopStorage">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Hops Storage Alpha Loss</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates the loss of alpha acid when you store hops. Based on <a href="http://morebeer.com/brewingtechniques/library/backissues/issue2.1/garetztable.html#1">MoreBeer Brewing Techniques</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Hops Alpha Acid</span>
+                        <input type="number" step="0.1" class="form-control" id="HSInitAlphaInput" placeholder="0 %"/>
+                        <span class="input-group-addon hbcPercentAddon" title="">% </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Loss After 6 Months</span>
+                        <select class="form-control" id="HSSixMonthLossSelect">
+                          <option value="20">Excellent - 20%</option>
+                          <option value="40">Good - 40%</option>
+                          <option value="60">Poor - 60%</option>
+                          <option value="50">Cascade - 50%</option>
+                          <option value="37">Centennial - 37%</option>
+                          <option value="32">Chinook - 32%</option>
+                          <option value="17">Cluster - 17%</option>
+                          <option value="49">Crystal - 49%</option>
+                          <option value="45">East Kent Goldings - 45%</option>
+                          <option value="40">Eroica - 40%</option>
+                          <option value="37">Fuggle - 37%</option>
+                          <option value="15">Galena - 15%</option>
+                          <option value="45">German Spalter - 45%</option>
+                          <option value="45">Hallertauer (domestic) - 45%</option>
+                          <option value="40">Hallertauer Hersbrucker - 40%</option>
+                          <option value="25">Hallertauer Northern Brewer - 25%</option>
+                          <option value="46">Hallertauer Mittelfrueh - 46%</option>
+                          <option value="50">Hersbrucker (domestic) - 50%</option>
+                          <option value="55">Liberty - 55%</option>
+                          <option value="45">Mt. Hood - 45%</option>
+                          <option value="20">Northern Brewer (domestic) - 20%</option>
+                          <option value="25">Nugget - 25%</option>
+                          <option value="15">Perle (domestic) - 15%</option>
+                          <option value="44">Pride of Ringwood - 44%</option>
+                          <option value="50">Saazer (Czech) - 50%</option>
+                          <option value="50">Spalt (domestic) - 50%</option>
+                          <option value="35">Strisselspalt (France) - 35%</option>
+                          <option value="37">Styrian Goldings - 37%</option>
+                          <option value="42">Tettnang Tettnanger - 42%</option>
+                          <option value="42">Tettnanger (domestic) - 42%</option>
+                          <option value="37">Willamette - 37%</option>
+                        </select>
+                        <span class="input-group-addon hbcPercentAddon">% </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Storage Temperature</span>
+                        <input type="number" step="0.1" class="form-control" id="HSStorageTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Storage Conditions</span>
+                        <select class="form-control" id="HSStorageConditionsSelect">
+                          <option value="1">Unsealed or sealed in plastic bags</option>
+                          <option value="0.75">Sealed airtight, not oxygen-free</option>
+                          <option value="0.5">Sealed airtight, oxygen-free</option>
+                        </select>
+                        <span class="input-group-addon hbcPercentAddon"> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Hops Age</span>
+                        <input type="number" step="0.1" class="form-control" id="HSHopsAge" placeholder="0 days"/>
+                        <span class="input-group-addon hbcDaysAddon">d </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="HSCalcValue"> --- </span> % alpha acid
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="HSCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="AlcoholCalc">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Alcohol Calculator</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates your <abbr title="Alcohol By Volume">ABV</abbr> based on your <abbr title="Original Gravity">OG</abbr> and <abbr title="Specific Gravity">SG</abbr>/<abbr title="Final Gravity">FG</abbr>. Inspired by <a href="https://www.brewtoad.com/tools/alcohol-calculator">brewtoad</a>, but with the <a href="http://www.brewersfriend.com/2011/06/16/alcohol-by-volume-calculator-updated/">alternative ABV formula</a>.
+                </p>
+                <h4>Gravity version</h4>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Original Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="ACOGInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Specific Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="ACSGInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <h4>Brix version</h4>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Original Brix</span>
+                        <input type="number" step="0.001" class="form-control" id="ACOGBrixInput" placeholder="0 °Bx"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Specific Brix</span>
+                        <input type="number" step="0.001" class="form-control" id="ACSGBrixInput" placeholder="0 °Bx"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="ACCalcValue"> --- </span> % ABV
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="ACCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="HydroTemp">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Hydrometer Temperature Correction</strong></div>
+              <div class="panel-body">
+                <p>
+                  When measuring specific gravity using a hydrometer you need to correct for the temperature of the liquid. Based on <a href="https://www.brewtoad.com/tools/hydrometer-temperature-correction">brewtoad</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Measured Gravity</span>
+                        <input type="number" step="0.5" class="form-control" id="HTSGInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio">: </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Liquid Temperature</span>
+                        <input type="number" step="0.1" class="form-control" id="HTTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Hydrometer Calibration Temp.</span>
+                        <input type="number" step="0.1" class="form-control" id="HTCalTempInput" value="20" placeholder="20 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="HTCalcValue"> --- </span> Corrected SG
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="HTCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="RefractAlcohol">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Refractometer Alcohol Adjustment</strong></div>
+              <div class="panel-body">
+                <p>
+                  When using a refractometer to read the gravity of an alcoholic liquid, an adjustment is required on the reading to get correct results. Based on <a href="http://seanterrill.com/2011/04/07/refractometer-fg-results/">SeanTerrill.com</a> and the <a href="http://www.brewersfriend.com/2011/06/16/alcohol-by-volume-calculator-updated/">alternative ABV formula</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon" title="Around 1.04 gives good results here, but for higher gravity brews it might need adjusting to be completely accurate">Wort correction factor</span>
+                        <input type="number" step="0.001" class="form-control" id="RAWortFactorInput" value="1.040" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <h4>Gravity version</h4>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Original Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="RAGOGInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Refractometer reading</span>
+                        <input type="number" step="0.001" class="form-control" id="RAGSGInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="RAGAlcCalcValue"> --- </span> % ABV
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="RAGCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="RAGCalcValue"> --- </span> Adjusted SG
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <h4>Brix version</h4>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Original Brix</span>
+                        <input type="number" step="0.001" class="form-control" id="RABOGInput" placeholder="0 °Bx"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Refractometer reading</span>
+                        <input type="number" step="0.001" class="form-control" id="RABSGInput" placeholder="0 °Bx"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="RABAlcCalcValue"> --- </span> % ABV
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="RABCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="RABCalcValue"> --- </span> Adjusted °Bx
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="BrixGravity">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Convert from Brix to Gravity and back</strong></div>
+              <div class="panel-body">
+                <p>
+                  Brix to Gravity conversion is an approximation. Based on <a href="http://byo.com/stories/item/1314-refractometers-and-mash-outs-mr-wizard">byo</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Brix</span>
+                        <input type="number" step="0.01" class="form-control" id="BGBrixInput" placeholder="0 °Bx"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Degress Brix"><strong>°Bx</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="BGBrixToGravityCalcValue"> --- </span> SG
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="BGBrixToGravityCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="BGGravityInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="BGGravityToBrixCalcValue"> --- </span> °Bx
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="BGGravityToBrixCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="ColorCalc">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Color Converter</strong></div>
+              <div class="panel-body">
+                <p>
+                  Convert between the most common methods to measure color in brewing. Based on <a href="https://www.brewtoad.com/tools/color-converter">brewtoad</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">SRM</span>
+                        <input type="number" step="0.01" class="form-control" id="CCSRMInput" placeholder="0"/>
+                        <span class="input-group-addon" title="SRM"><strong>SRM</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon" title="Degrees Lovibond">°L</span>
+                        <input type="number" step="0.01" class="form-control" id="CCLoviInput" placeholder="0 °L"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Degrees Lovibond"><strong>°L</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">EBC</span>
+                        <input type="number" step="0.01" class="form-control" id="CCEBCInput" placeholder="0"/>
+                        <span class="input-group-addon" title="EBC"><strong>EBC</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="Misc">
+            <div class="well well-sm">
+              <h4>Changelog</h4>
+              <ul>
+                <li>
+                  <strong>1.6</strong> (26-Oct-2015): US/Metric switches added to each calculator + added this changelog.
+                </li>
+                <li>
+                  <strong>1.5</strong> (25-Oct-2015): <a href="#MashInfusion">Mash Infusion</a> added.
+                </li>
+                <li>
+                  <strong>1.4</strong> (25-Oct-2015): Support for US units.
+                </li>
+                <li>
+                  <strong>1.3</strong> (23-Oct-2015): Added <a href="#StrikeTemp">Strike Temp</a> and <a href="#HydroTemp">Hydrometer Temp</a>.
+                </li>
+                <li>
+                  <strong>1.2</strong> (23-Oct-2015): Initial online version.
+                </li>
+              </ul>
+            </div>
+<pre>----------------------------------------------------------------------------
+"THE BEER-WARE LICENSE" (Revision 42):
+&lt;post at eirikh no&gt; wrote this file.  As long as you retain this notice you
+can do whatever you want with this stuff. If we meet some day, and you think
+this stuff is worth it, you can buy me a beer in return.   Eirik H
+----------------------------------------------------------------------------</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/main.js?ver=1.6"></script>
+    </body>
+    </html>
