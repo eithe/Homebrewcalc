@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free, simple brewing calculators for every day use.">
+  <meta name="description" content="Free and simple brewing calculators for hops, yeast, malt, wort, water, BIAB and equipment.">
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="favicon.ico">
 
-  <title>Homebrew Calc - Hops, Yeast, Malt, Equipment Calculators</title>
+  <title>Homebrew Calculators &amp; BIAB Checklist - Hops, Yeast, Malt, Wort, Equipment, Water, Strike Temperature</title>
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -31,8 +31,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="pull-left navbar-logo"><img src="/logo.png" style="width:16px;height:16px;" height="16" width="16"></a>
-        <a href="/" class="navbar-brand" >Homebrew Calc</a>
+        <a href="/" class="pull-left navbar-logo"><img src="./logo.png" style="width:16px;height:16px;" height="16" width="16"></a>
+        <a href="/" class="navbar-brand" >Homebrew Calcs &amp; Checklist</a>
       </div>
     </div>
   </div>
@@ -54,20 +54,22 @@
           <li><a href="#HopStorage">Hops Storage</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-          <li><a href="#AlcoholCalc">Alcohol</a></li>
+          <li><a href="#AlcoholCalc">Alcohol by Volume</a></li>
+          <li><a href="#PrimingSugar">Priming Sugar</a></li>
           <li><a href="#HydroTemp">Hydrometer Temp. Adj.</a></li>
           <li><a href="#RefractAlcohol">Refractometer Alcohol Adj.</a></li>
           <li><a href="#BrixGravity">Brix &lt;-&gt; Gravity</a></li>
           <li><a href="#ColorCalc">Color</a></li>
         </ul>
         <ul class="nav nav-sidebar">
+          <li><a href="#BIABChecklist">The BIAB Checklist</a></li>
           <li><a href="#Misc">Misc</a></li>
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="hbcAnchor" id="Overview">
-          <h1>Free, simple homebrew calculators for every day use.</h1>
-          <p>A collection of the hops, yeast, malt and equipment calculators I use for brewing. If you have any suggestions you can drop me a line on on post at eirikh no.<br/>
+          <h1>Free, simple homebrew calculators + BIAB checklist for every day use.</h1>
+          <p>A collection of the hops, yeast, malt and equipment calculators I use for brewing + my BIAB checklist. If you have any suggestions you can drop me a line on on post at eirikh no.<br/>
             <br/></p>
             <div class="hbcUnitSelectors">
               <h2>Units</h2>
@@ -76,7 +78,7 @@
             </div>
           </div>
           <div class="hbcAnchor" id="StrikeTemp">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Strike Temperature Calculator</strong></div>
               <div class="panel-body">
                 <p>
@@ -138,7 +140,7 @@
           </div>
 
           <div class="hbcAnchor" id="MashInfusion">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Mash Infusion / Boiling water additions</strong></div>
               <div class="panel-body">
                 <p>
@@ -209,7 +211,7 @@
           </div>
 
           <div class="hbcAnchor" id="WaterHeating">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Water Heating Calculator</strong></div>
               <div class="panel-body">
                 <p>
@@ -270,7 +272,7 @@
           </div>
 
           <div class="hbcAnchor" id="DilutionWater">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Dilution Calculator</strong> <span class="text-muted">(Find water addition - target gravity known)</span></div>
               <div class="panel-body">
                 <p>
@@ -322,7 +324,7 @@
           </div>
 
           <div class="hbcAnchor" id="DilutionWater2">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Dilution Calculator</strong> <span class="text-muted">(Find final gravity - water addition known)</span></div>
               <div class="panel-body">
                 <p>
@@ -374,7 +376,7 @@
           </div>
 
           <div class="hbcAnchor" id="MashSize">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Mash Size Calculator</strong></div>
               <div class="panel-body">
                 <p>
@@ -395,7 +397,7 @@
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Mash Tickness</span>
                         <input type="number" step="0.001" class="form-control" id="MSMashTicknessInput" placeholder="1.xxx kg/liter"/>
-                        <span class="input-group-addon hbcRadioAddon hbcKiloLiterRatio" title="Ratio"><strong>:</strong> </span>
+                        <span class="input-group-addon hbcRatioAddon hbcKiloLiterRatio" title="Ratio"><strong>:</strong> </span>
                       </div>
                     </div>
                   </div>
@@ -418,7 +420,7 @@
           </div>
 
           <div class="hbcAnchor" id="TunSize">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Brew Kettle Size Calculator</strong></div>
               <div class="panel-body">
                 <p>
@@ -470,7 +472,7 @@
           </div>
 
           <div class="hbcAnchor" id="HopsAlpha">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Hops Alpha Adjustment</strong></div>
               <div class="panel-body">
                 <p>
@@ -522,7 +524,7 @@
           </div>
 
           <div class="hbcAnchor" id="HopStorage">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Hops Storage Alpha Loss</strong></div>
               <div class="panel-body">
                 <p>
@@ -628,8 +630,8 @@
           </div>
 
           <div class="hbcAnchor" id="AlcoholCalc">
-            <div class="panel panel-primary">
-              <div class="panel-heading"><strong>Alcohol Calculator</strong></div>
+            <div class="panel panel-primary panel-calculator">
+              <div class="panel-heading"><strong>Alcohol by Volume Calculator</strong></div>
               <div class="panel-body">
                 <p>
                   Estimates your <abbr title="Alcohol By Volume">ABV</abbr> based on your <abbr title="Original Gravity">OG</abbr> and <abbr title="Specific Gravity">SG</abbr>/<abbr title="Final Gravity">FG</abbr>. Inspired by <a href="https://www.brewtoad.com/tools/alcohol-calculator">brewtoad</a>, but with the <a href="http://www.brewersfriend.com/2011/06/16/alcohol-by-volume-calculator-updated/">alternative ABV formula</a>.
@@ -641,7 +643,7 @@
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Original Gravity</span>
                         <input type="number" step="0.001" class="form-control" id="ACOGInput" placeholder="1.xxx"/>
-                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
                       </div>
                     </div>
                   </div>
@@ -650,7 +652,7 @@
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Specific Gravity</span>
                         <input type="number" step="0.001" class="form-control" id="ACSGInput" placeholder="1.xxx"/>
-                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
                       </div>
                     </div>
                   </div>
@@ -692,8 +694,101 @@
             </div>
           </div>
 
+          <div class="hbcAnchor" id="PrimingSugar">
+            <div class="panel panel-primary panel-calculator">
+              <div class="panel-heading"><strong>Priming Sugar Calculator</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates how much priming sugar (<abbr title="Dextrose">Corn Sugar</abbr>, <abbr title="Sucrose">Table Sugar</abbr> or <abbr title="Dry Malt Extract">DME</abbr>) to add for carbonation when bottling homebrewed beer. Based on <a href="http://braukaiser.com/wiki/index.php?title=Accurately_Calculating_Sugar_Additions_for_Carbonation">braukaiser.com</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Beer Volume</span>
+                        <input type="number" step="0.1" class="form-control" id="PSVolumeInput" placeholder="0 L"/>
+                        <span class="input-group-addon hbcVolumeAddon">L </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Beer Temperature</span>
+                        <input type="number" step="0.1" class="form-control" id="PSTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon"><abbr title="A volume is the space that the CO2 would take up at a pressure of one atmosphere (about 15 pounds per square inch) and at a temperature of 0° C (32° F) — that’s Standard Temperature and Pressure (STP). In other words, if five gallons of beer contained three volumes of CO2, the CO2 by itself would occupy three times the space the beer takes up, or 15 gallons. An average carbonation level is 2.5 volumes of CO2. (from byo.com)">Desired Volume of CO<sub>2</sub></abbr></span>
+                        <input type="number" step="0.001" class="form-control" id="PSVolumesInput" placeholder="0"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-3">
+                      <b>Style &amp; Volumes of CO2</b> (<a href="https://byo.com/mead/item/1271-priming-with-sugar">byo.com</a>)<br/>
+                      <table>
+                        <tbody>
+                          <tr><td>British ales</td><td>1.5–2.2</td></tr>
+                          <tr><td>Belgian ales</td><td>2.0–4.5</td></tr>
+                          <tr><td>American ales </td><td>2.2–3.0</td></tr>
+                          <tr><td>European Lagers&nbsp;</td><td>2.4–2.6</td></tr>
+                          <tr><td>American Lagers&nbsp;</td><td>2.5–2.8</td></tr>
+                          <tr><td>German weizens </td><td>2.8–5.1</td></tr>
+                        </tbody>
+                      </table>
+                        <br/>
+                    </div>
+                    <div class="col-sm-7">
+                        (the residual CO<sub>2</sub> in your beer: <span class="hbcResult hbcResultNA" id="PSBeerCO2CalcValue"> --- </span> )<br/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="PSSugarCalcValue"> --- </span> <span class="hbcGramUnitName">g</span> <abbr title="Sucrose">table sugar</abbr> or ...
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="PSCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-3">
+                      <div class="well well-sm">
+                        <span class="hbcResult hbcResultNA" id="PSCornCalcValue"> --- </span> <span class="hbcGramUnitName">g</span> <abbr title="Dextrose: Contains 9% water by weight which means that only 91% of its weight can be considered for the CO2 calculation">corn sugar</abbr> or ...
+                      </div>
+                    </div>
+                    <div class="col-sm-7">
+
+                    </div>
+                  </div>
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-3">
+                      <div class="well well-sm">
+                        <span class="hbcResult hbcResultNA" id="PSDMECalcValue"> --- </span> <span class="hbcGramUnitName">g</span> <abbr title="Dry Malt Extract: When using malt extract for priming, its fermentability needs to be taken into account. Normally you end up with having to add approximately 35% more DME than table sugar by weight.">DME</abbr>
+                      </div>
+                    </div>
+                    <div class="col-sm-7">
+
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+
           <div class="hbcAnchor" id="HydroTemp">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Hydrometer Temperature Correction</strong></div>
               <div class="panel-body">
                 <p>
@@ -745,7 +840,7 @@
           </div>
 
           <div class="hbcAnchor" id="RefractAlcohol">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Refractometer Alcohol Adjustment</strong></div>
               <div class="panel-body">
                 <p>
@@ -769,7 +864,7 @@
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Original Gravity</span>
                         <input type="number" step="0.001" class="form-control" id="RAGOGInput" placeholder="1.xxx"/>
-                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
                       </div>
                     </div>
                   </div>
@@ -778,7 +873,7 @@
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Refractometer reading</span>
                         <input type="number" step="0.001" class="form-control" id="RAGSGInput" placeholder="1.xxx"/>
-                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
                       </div>
                     </div>
                   </div>
@@ -853,7 +948,7 @@
           </div>
 
           <div class="hbcAnchor" id="BrixGravity">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Convert from Brix to Gravity and back</strong></div>
               <div class="panel-body">
                 <p>
@@ -886,7 +981,7 @@
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Gravity</span>
                         <input type="number" step="0.001" class="form-control" id="BGGravityInput" placeholder="1.xxx"/>
-                        <span class="input-group-addon hbcRadioAddon" title="Ratio"><strong>:</strong> </span>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
                       </div>
                     </div>
                   </div>
@@ -908,7 +1003,7 @@
           </div>
 
           <div class="hbcAnchor" id="ColorCalc">
-            <div class="panel panel-primary">
+            <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Color Converter</strong></div>
               <div class="panel-body">
                 <p>
@@ -947,10 +1042,36 @@
             </div>
           </div>
 
+          <div class="hbcAnchor" id="BIABChecklist">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>The Brew In a Bag (BIAB) Checklist</strong></div>
+              <div class="panel-body">
+                <p>
+                  A to-the-point reminder checklist for BIAB home brewing including what to prepare the days before you brew. Customize it to your own setup by downloading the <a href="files/BIAB_Checklist.docx">Word source</a>.
+                </p>
+
+                <br/>
+
+                <p>
+                  <a class="btn btn-default" target="_blank" href="files/BIAB_Checklist.pdf"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> The BIAB Checklist PDF</a> (<a href="files/BIAB_Checklist.docx">Word source</a>)<br/>
+                  <br/>
+                  There is also a <a href="files/BIAB_Sjekkliste.pdf" target="_blank"> Norwegian version</a> available (<a href="files/BIAB_Sjekkliste.docx">Word source</a>)
+                </p>
+
+              </div>
+            </div>
+          </div>
+
           <div class="hbcAnchor" id="Misc">
             <div class="well well-sm">
               <h4>Changelog</h4>
               <ul>
+                <li>
+                  <strong>1.8</strong> (17-Jun-2016): <a href="#PrimingSugar">Priming Sugar</a> added
+                </li>
+                <li>
+                  <strong>1.7</strong> (15-Apr-2016): Added the first version of The Engineer's BIAB Checklist
+                </li>
                 <li>
                   <strong>1.6</strong> (26-Oct-2015): US/Metric switches added to each calculator + added this changelog.
                 </li>
@@ -982,6 +1103,6 @@ this stuff is worth it, you can buy me a beer in return.   Eirik H
       <!-- Placed at the end of the document so the pages load faster -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
-      <script src="js/main.js?ver=1.6"></script>
+      <script src="js/main.js?ver=1.8"></script>
     </body>
     </html>

@@ -165,6 +165,11 @@ $().ready(function () {
     var acbChangeHandler = function () { acb(); }
     $('#ACOGBrixInput,#ACSGBrixInput').on(events, acbChangeHandler);
 
+    // priming sugar
+    var psChangeHandler = function () { ps(); }
+    $('#PSVolumeInput,#PSTempInput,#PSVolumesInput').on(events, psChangeHandler);
+    $('#PSCalcBtn').click(getRecalcTimeoutFunc('#PSSugarCalcValue,#PSCornCalcValue,#PSDMECalcValue',psChangeHandler));
+
     // Hydrometer temp. adj.
     var htChangeHandler = function () { ht(); }
     $('#HTSGInput,#HTTempInput,#HTCalTempInput').on(events, htChangeHandler);
@@ -356,6 +361,47 @@ function acb() {
       setInputValue($acgSGEl,Math.round(convertBrixToGravity(sgBrix)*1000)/1000);
 
   acg(true); // call the gravity version, disable write back to brix
+}
+
+function ps() { // hydrometer temp.
+    var beerVol = getVolume($('#PSVolumeInput'));
+    var beerTemp = getTemp($('#PSTempInput'));
+    var wantedCO2 = getGenericNumberVal($('#PSVolumesInput')) || 0;
+
+    $psResidualCO2 = $('#PSBeerCO2CalcValue');
+    $psSugarVal = $('#PSSugarCalcValue');
+    $psCornVal = $('#PSCornCalcValue');
+    $psDMEVal = $('#PSDMECalcValue');
+
+    if((beerTemp || beerTemp == 0)) {
+      var beerCO2 = 3.0378 - (0.050062 * HBCConverter.CtoF(beerTemp)) + (0.00026555 * Math.pow(HBCConverter.CtoF(beerTemp),2));
+      setOKOutputValue($psResidualCO2,Math.round(beerCO2 * 100) / 100);
+      if (beerVol && wantedCO2) {
+          var sugarWeight = (wantedCO2-beerCO2)*beerVol/0.25;
+          var cornWeight = sugarWeight/0.91;
+          var dmeWeight = sugarWeight/(0.82 * 0.80);
+          if(!isMetric()) {
+            sugarWeight = HBCConverter.GToOz(sugarWeight);
+            cornWeight = HBCConverter.GToOz(cornWeight);
+            dmeWeight = HBCConverter.GToOz(dmeWeight);
+          }
+          setOKOutputValue($psSugarVal,Math.round(sugarWeight * 10) / 10);
+          setOKOutputValue($psCornVal,Math.round(cornWeight * 10) / 10);
+          setOKOutputValue($psDMEVal,Math.round(dmeWeight * 10) / 10);
+      } else {
+        setNAOutputValue($psSugarVal);
+        setNAOutputValue($psCornVal);
+        setNAOutputValue($psDMEVal);
+      }
+
+    } else {
+      setNAOutputValue($psResidualCO2);
+      setNAOutputValue($psSugarVal);
+      setNAOutputValue($psCornVal);
+      setNAOutputValue($psDMEVal);
+
+    }
+
 }
 
 function ht() { // hydrometer temp.
