@@ -9,6 +9,7 @@
 
 $().ready(function () {
 
+    // sidebar nav click
     $('.nav-sidebar a').on("click", function () {
         if ($('.navbar-toggle').is(':visible')) {
             $('.sidebar').collapse('toggle');
@@ -20,11 +21,21 @@ $().ready(function () {
       $(this).append('<div class="pull-right"><button type="button" class="btn btn-success btn-xs hbcUnitBtn hbcMetricBtn">Metric</button> <button type="button" class="btn btn-primary btn-xs hbcUnitBtn hbcUSBtn">US</button></div>');
     });
 
+    // on unit switch btn click
     $('.hbcUnitBtn').on("click", function () {
-      // reset
-      $('.hbcUnitBtn.btn-lg').removeClass("btn-success").removeClass("btn-default").addClass("btn-default");
-      $('.hbcUnitBtn.btn-xs').removeClass("btn-success").removeClass("btn-primary").addClass("btn-primary");
+        // figure out if we have switched units now
+        var hasSwitched = false;
+        if($(this).hasClass('hbcMetricBtn')) {
+          hasSwitched = !isMetric();
+        } else {
+          hasSwitched = isMetric();
+        }
 
+        // reset
+        $('.hbcUnitBtn.btn-lg').removeClass("btn-success").removeClass("btn-default").addClass("btn-default");
+        $('.hbcUnitBtn.btn-xs').removeClass("btn-success").removeClass("btn-primary").addClass("btn-primary");
+
+        // set selected style
         if($(this).hasClass('hbcMetricBtn')) {
           $('.hbcMetricBtn').removeClass("btn-default").addClass("btn-success");
         } else {
@@ -51,6 +62,20 @@ $().ready(function () {
 
         $('.hbcKiloUnitName').text(unitName);
 
+        // convert:
+        if(hasSwitched) {
+          $('.hbcKiloInput').each(function(index) {
+              var $val = $(this).val();
+              if ($val) {
+                if(isMetric()) {
+                  $(this).val(Math.round(HBCConverter.LbToKg($val) * 100) / 100);
+                } else {
+                  $(this).val(Math.round(HBCConverter.KgToLb($val) * 100) / 100);
+                }
+              }
+            });
+        }
+
         // WEIGHT (gram)
         var unitName =  isMetric() ? 'g' : 'oz';
         var placeholderName = '0 ' + unitName;
@@ -62,6 +87,20 @@ $().ready(function () {
         });
 
         $('.hbcGramUnitName').text(unitName);
+
+        // convert:
+        if(hasSwitched) {
+          $('.hbcGramInput').each(function(index) {
+              var $val = $(this).val();
+              if ($val) {
+                if(isMetric()) {
+                  $(this).val(Math.round(HBCConverter.OzToG($val) * 100) / 100);
+                } else {
+                  $(this).val(Math.round(HBCConverter.GToOz($val) * 100) / 100);
+                }
+              }
+            });
+        }
 
         // TEMP
         unitName = isMetric() ? '°C' : '°F';
@@ -75,6 +114,20 @@ $().ready(function () {
 
         $('.hbcTempUnitName').text(unitName);
 
+        // convert:
+        if(hasSwitched) {
+          $('.hbcTempInput').each(function(index) {
+              var $val = $(this).val();
+              if ($val || $val === 0) {
+                if(isMetric()) {
+                  $(this).val(Math.round(HBCConverter.FtoC($val) * 100) / 100);
+                } else {
+                  $(this).val(Math.round(HBCConverter.CtoF($val) * 100) / 100);
+                }
+              }
+            });
+        }
+
         // VOLUME (liters)
         unitName = isMetric()? 'L' : 'gal.';
         placeholderName = '0 ' + unitName;
@@ -87,6 +140,20 @@ $().ready(function () {
 
         $('.hbcVolumeUnitName').text(unitName);
 
+        // convert:
+        if(hasSwitched) {
+          $('.hbcVolumeInput').each(function(index) {
+              var $val = $(this).val();
+              if ($val) {
+                if(isMetric()) {
+                  $(this).val(Math.round(HBCConverter.GalToL($val) * 100) / 100);
+                } else {
+                  $(this).val(Math.round(HBCConverter.LtoGal($val) * 100) / 100);
+                }
+              }
+            });
+        }
+
         // LENGTH (CM)
 
         unitName = isMetric() ? 'cm' : 'in';
@@ -97,6 +164,22 @@ $().ready(function () {
           $this.text(unitName);
           $this.parent().find('.form-control').attr('placeholder',placeholderName);
         });
+
+        $('.hbcLengthCMUnitName').text(unitName);
+
+        // convert:
+        if(hasSwitched) {
+          $('.hbcLengthCMInput').each(function(index) {
+              var $val = $(this).val();
+              if ($val) {
+                if(isMetric()) {
+                  $(this).val(Math.round(HBCConverter.InchToCm($val) * 100) / 100);
+                } else {
+                  $(this).val(Math.round(HBCConverter.CmToInch($val) * 100) / 100);
+                }
+              }
+            });
+        }
 
         // kg/liter (not used I believe)
 
@@ -113,6 +196,7 @@ $().ready(function () {
         placeholderName = '0 ' + unitName;
         $('.hbcLiterKiloRatio').each(function(index) {
           var $this = $(this);
+          $this.text(unitName);
           $this.parent().find('.form-control').attr('placeholder',placeholderName);
         });
     });
@@ -181,6 +265,11 @@ $().ready(function () {
     $('#PSVolumeInput,#PSTempInput,#PSVolumesInput').on(events, psChangeHandler);
     $('#PSCalcBtn').click(getRecalcTimeoutFunc('#PSSugarCalcValue,#PSCornCalcValue,#PSDMECalcValue',psChangeHandler));
 
+    // keg carbonation
+    var kcChangeHandler = function () { kc(); }
+    $('#KCTempInput,#KCVolumesInput').on(events, kcChangeHandler);
+    $('#KCCalcBtn').click(getRecalcTimeoutFunc('#KCCalcValue',kcChangeHandler));
+
     // Hydrometer temp. adj.
     var htChangeHandler = function () { ht(); }
     $('#HTSGInput,#HTTempInput,#HTCalTempInput').on(events, htChangeHandler);
@@ -198,7 +287,7 @@ $().ready(function () {
     // tun/kettle size
     var tsvChangeHandler = function () { tsv(); }
     $('#TSVDiameterInput,#TSVHeightInput,#TSDeadSpaceInput').on(events, tsvChangeHandler);
-    $('#TSVCalcBtn').click(getRecalcTimeoutFunc('#TSVCalcValue',tsvChangeHandler));
+    $('#TSVCalcBtn').click(getRecalcTimeoutFunc('#TSVCalcValue,#TSHeightCalcValue',tsvChangeHandler));
 
     // color calc
     var ccSRMChangeHandler = function () { ccSRM(); }
@@ -269,7 +358,7 @@ function ms() { // mash size
         } else {
           totalSize = grainWeight * (.08 + mashTickness/4);
         }
-        
+
         setOKOutputValue($msVal,Math.round(totalSize * 100) / 100)
     } else {
         setNAOutputValue($msVal);
@@ -302,15 +391,22 @@ function tsv() { // tun size volume
     var adj = getPercent($('#TSDeadSpaceInput')) || 0;
 
     $tsVal = $('#TSVCalcValue');
+    $tsHeightVal = $('#TSHeightCalcValue');
 
     if (tunRadius && tunHeight) {
         var totalVolume = (1 - adj) * (3.1415 * Math.pow(tunRadius,2) * tunHeight) / 1000;
-        if(!isMetric()) {
+        var heightPerUnit = 0;
+        if(isMetric()) {
+          heightPerUnit = tunHeight / totalVolume;
+        } else {
           totalVolume = HBCConverter.LtoGal(totalVolume);
+          heightPerUnit = HBCConverter.CmToInch(tunHeight) / totalVolume;
         }
-        setOKOutputValue($tsVal,Math.round(totalVolume * 100) / 100)
+        setOKOutputValue($tsVal,Math.round(totalVolume * 100) / 100);
+        setOKOutputValue($tsHeightVal,Math.round(heightPerUnit * 100) / 100);
     } else {
         setNAOutputValue($tsVal);
+        setNAOutputValue($tsHeightVal);
     }
 }
 
@@ -376,7 +472,7 @@ function acb() {
   acg(true); // call the gravity version, disable write back to brix
 }
 
-function ps() { // hydrometer temp.
+function ps() { // priming sugar
     var beerVol = getVolume($('#PSVolumeInput'));
     var beerTemp = getTemp($('#PSTempInput'));
     var wantedCO2 = getGenericNumberVal($('#PSVolumesInput')) || 0;
@@ -415,6 +511,21 @@ function ps() { // hydrometer temp.
 
     }
 
+}
+
+function kc() { // keg carbonation
+    var kegTemp = getTemp($('#KCTempInput'));
+    var wantedCO2 = getGenericNumberVal($('#KCVolumesInput')) || 0;
+
+    $kcVal = $('#KCCalcValue');
+
+    if((kegTemp || kegTemp == 0) && wantedCO2) {
+      kegTempFahrenheit = HBCConverter.CtoF(kegTemp); // I didn't convert this formula to use Celcius so just convert the temp to Fahrenheit first
+      var kegPressure = -16.6999 - 0.0101059 * kegTempFahrenheit + 0.00116512 * Math.pow(kegTempFahrenheit,2) + 0.173354 * kegTempFahrenheit * wantedCO2 + 4.24267 * wantedCO2 - 0.0684226 * Math.pow(wantedCO2,2);
+      setOKOutputValue($kcVal,Math.round(kegPressure * 10) / 10);
+    } else {
+      setNAOutputValue($kcVal);
+    }
 }
 
 function ht() { // hydrometer temp.

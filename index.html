@@ -56,6 +56,7 @@
         <ul class="nav nav-sidebar">
           <li><a href="#AlcoholCalc">Alcohol by Volume</a></li>
           <li><a href="#PrimingSugar">Priming Sugar</a></li>
+          <li><a href="#KegCarbonation">Keg Carbonation</a></li>
           <li><a href="#HydroTemp">Hydrometer Temp. Adj.</a></li>
           <li><a href="#RefractAlcohol">Refractometer Alcohol Adj.</a></li>
           <li><a href="#BrixGravity">Brix &lt;-&gt; Gravity</a></li>
@@ -79,7 +80,7 @@
           </div>
           <div class="hbcAnchor" id="StrikeTemp">
             <div class="panel panel-primary panel-calculator">
-              <div class="panel-heading"><strong>Strike Temperature Calculator</strong></div>
+              <div class="panel-heading"><strong>Strike Temperature</strong></div>
               <div class="panel-body">
                 <p>
                   Estimates the temperature your strike water needs to be in order to hit the desired mash-in temperature. Please note that the calculator assumes that no heat will be lost to the surroundings. You can minimize this error by pre-heating the tun. Based on <a href="http://howtobrew.com/book/section-3/the-methods-of-mashing/calculations-for-boiling-water-additions">Palmer, in How to Brew</a>.
@@ -98,7 +99,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Grain Temp</span>
-                        <input type="number" step="0.1" class="form-control" id="STGrainTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="STGrainTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -107,7 +108,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Mash Liquid Volume</span>
-                        <input type="number" step="0.1" class="form-control" id="STMashVolumeInput" placeholder="0 L"/>
+                        <input type="number" step="0.1" class="form-control hbcVolumeInput" id="STMashVolumeInput" placeholder="0 L"/>
                         <span class="input-group-addon hbcVolumeAddon">L </span>
                       </div>
                     </div>
@@ -116,7 +117,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Target Mash Temp</span>
-                        <input type="number" step="0.1" class="form-control" id="STMashTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="STMashTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -160,7 +161,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Current Water Volume</span>
-                        <input type="number" step="0.1" class="form-control" id="MIWaterVolumeInput" placeholder="0 L"/>
+                        <input type="number" step="0.1" class="form-control hbcVolumeInput" id="MIWaterVolumeInput" placeholder="0 L"/>
                         <span class="input-group-addon hbcVolumeAddon">L </span>
                       </div>
                     </div>
@@ -169,7 +170,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Current Mash Temp</span>
-                        <input type="number" step="0.1" class="form-control" id="MICurrentTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="MICurrentTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -178,7 +179,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Target Mash Temp</span>
-                        <input type="number" step="0.1" class="form-control" id="MITargetTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="MITargetTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -187,7 +188,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon" title="The actual temperature of the hot/boiling water you are adding">Hot Water Temp</span>
-                        <input type="number" step="0.1" class="form-control" id="MIWaterTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="MIWaterTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -212,7 +213,7 @@
 
           <div class="hbcAnchor" id="WaterHeating">
             <div class="panel panel-primary panel-calculator">
-              <div class="panel-heading"><strong>Water Heating Calculator</strong></div>
+              <div class="panel-heading"><strong>Water Heating</strong></div>
               <div class="panel-body">
                 <p>
                   Estimates the time it takes to heat water. Please note that the calculator assumes that no heat will be lost to the surroundings.
@@ -222,7 +223,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Initial Water Temp</span>
-                        <input type="number" step="0.1" class="form-control" id="WHInitialTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="WHInitialTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -231,7 +232,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Target Water Temp</span>
-                        <input type="number" step="0.1" class="form-control" id="WHDesiredTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="WHDesiredTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -240,7 +241,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Water Volume</span>
-                        <input type="number" step="0.1" class="form-control" id="WHVolumeInput" placeholder="0 L"/>
+                        <input type="number" step="0.1" class="form-control hbcVolumeInput" id="WHVolumeInput" placeholder="0 L"/>
                         <span class="input-group-addon hbcVolumeAddon">L </span>
                       </div>
                     </div>
@@ -301,7 +302,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Wort Volume</span>
-                        <input type="number" step="0.1" class="form-control" id="DLWVolumeInput" placeholder="0 L"/>
+                        <input type="number" step="0.1" class="form-control hbcVolumeInput" id="DLWVolumeInput" placeholder="0 L"/>
                         <span class="input-group-addon hbcVolumeAddon">L </span>
                       </div>
                     </div>
@@ -344,7 +345,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Wort Volume</span>
-                        <input type="number" step="0.1" class="form-control" id="DLGInitVolumeInput" placeholder="0 L"/>
+                        <input type="number" step="0.1" class="form-control hbcVolumeInput" id="DLGInitVolumeInput" placeholder="0 L"/>
                         <span class="input-group-addon hbcVolumeAddon">L </span>
                       </div>
                     </div>
@@ -353,7 +354,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Target Volume</span>
-                        <input type="number" step="0.1" class="form-control" id="DLGTargetVolumeInput" placeholder="0 L"/>
+                        <input type="number" step="0.1" class="form-control hbcVolumeInput" id="DLGTargetVolumeInput" placeholder="0 L"/>
                         <span class="input-group-addon hbcVolumeAddon">L </span>
                       </div>
                     </div>
@@ -396,8 +397,8 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Mash Tickness</span>
-                        <input type="number" step="0.001" class="form-control" id="MSMashTicknessInput" placeholder="1.xxx L/kg"/>
-                        <span class="input-group-addon hbcRatioAddon hbcLiterKiloRatio" title="Ratio"><strong>:</strong> </span>
+                        <input type="number" step="0.001" class="form-control" id="MSMashTicknessInput" placeholder="0 L/kg"/>
+                        <span class="input-group-addon hbcRatioAddon hbcLiterKiloRatio"><strong>L/kg</strong> </span>
                       </div>
                     </div>
                   </div>
@@ -431,7 +432,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Kettle Diameter</span>
-                        <input type="number" step="0.001" class="form-control" id="TSVDiameterInput" placeholder="0 cm"/>
+                        <input type="number" step="0.001" class="form-control hbcLengthCMInput" id="TSVDiameterInput" placeholder="0 cm"/>
                         <span class="input-group-addon hbcLengthAddon" title="Length"><strong>cm</strong> </span>
                       </div>
                     </div>
@@ -440,7 +441,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Kettle Height</span>
-                        <input type="number" step="0.001" class="form-control" id="TSVHeightInput" placeholder="0 cm"/>
+                        <input type="number" step="0.001" class="form-control hbcLengthCMInput" id="TSVHeightInput" placeholder="0 cm"/>
                         <span class="input-group-addon hbcLengthAddon" title="Length"><strong>cm</strong> </span>
                       </div>
                     </div>
@@ -463,6 +464,18 @@
                       </div>
                       <div class="col-sm-7">
                         <button type="button" class="btn btn-default btn-lg" id="TSVCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="TSHeightCalcValue"> --- </span> <span class="hbcLengthCMUnitName">cm</span>. (height of 1 <span class="hbcVolumeUnitName">L</span>)
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+
                       </div>
                     </div>
                   </div>
@@ -585,7 +598,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Storage Temperature</span>
-                        <input type="number" step="0.1" class="form-control" id="HSStorageTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="HSStorageTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -706,7 +719,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Beer Volume</span>
-                        <input type="number" step="0.1" class="form-control" id="PSVolumeInput" placeholder="0 L"/>
+                        <input type="number" step="0.1" class="form-control hbcVolumeInput" id="PSVolumeInput" placeholder="0 L"/>
                         <span class="input-group-addon hbcVolumeAddon">L </span>
                       </div>
                     </div>
@@ -715,7 +728,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Beer Temperature</span>
-                        <input type="number" step="0.1" class="form-control" id="PSTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="PSTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -787,6 +800,69 @@
             </div>
           </div>
 
+          <div class="hbcAnchor" id="KegCarbonation">
+            <div class="panel panel-primary panel-calculator">
+              <div class="panel-heading"><strong>Keg Carbonation</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates the pressure you should set your regulator to when kegging beer to force carbonation. Based on <a href="http://brainlubeonline.com/GasLawsBeer.html">brainlubeonline.com</a>.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Keg Temperature</span>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="KCTempInput" placeholder="0 &deg;C"/>
+                        <span class="input-group-addon hbcTempAddon">&deg;C</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon"><abbr title="A volume is the space that the CO2 would take up at a pressure of one atmosphere (about 15 pounds per square inch) and at a temperature of 0° C (32° F) — that’s Standard Temperature and Pressure (STP). In other words, if five gallons of beer contained three volumes of CO2, the CO2 by itself would occupy three times the space the beer takes up, or 15 gallons. An average carbonation level is 2.5 volumes of CO2. (from byo.com)">Desired Volume of CO<sub>2</sub></abbr></span>
+                        <input type="number" step="0.001" class="form-control" id="KCVolumesInput" placeholder="0"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-3">
+                      <b>Style &amp; Volumes of CO2</b> (<a href="https://byo.com/mead/item/1271-priming-with-sugar">byo.com</a>)<br/>
+                      <table>
+                        <tbody>
+                          <tr><td>British ales</td><td>1.5–2.2</td></tr>
+                          <tr><td>Belgian ales</td><td>2.0–4.5</td></tr>
+                          <tr><td>American ales </td><td>2.2–3.0</td></tr>
+                          <tr><td>European Lagers&nbsp;</td><td>2.4–2.6</td></tr>
+                          <tr><td>American Lagers&nbsp;</td><td>2.5–2.8</td></tr>
+                          <tr><td>German weizens </td><td>2.8–5.1</td></tr>
+                        </tbody>
+                      </table>
+                        <br/>
+                    </div>
+                    <div class="col-sm-7">
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="KCCalcValue"> --- </span> PSI
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="KCCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
           <div class="hbcAnchor" id="HydroTemp">
             <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Hydrometer Temperature Correction</strong></div>
@@ -808,7 +884,7 @@
                     <div class="col-sm-12">
                       <div class="input-group">
                         <span class="input-group-addon hbcLeftAddon">Liquid Temperature</span>
-                        <input type="number" step="0.1" class="form-control" id="HTTempInput" placeholder="0 &deg;C"/>
+                        <input type="number" step="0.1" class="form-control hbcTempInput" id="HTTempInput" placeholder="0 &deg;C"/>
                         <span class="input-group-addon hbcTempAddon">&deg;C</span>
                       </div>
                     </div>
@@ -1067,6 +1143,9 @@
               <h4>Changelog</h4>
               <ul>
                 <li>
+                  <strong>1.81</strong> (19-Jun-2016): Added <a href="#KegCarbonation">Keg Carbonation</a>, show height of 1 L (or gal) in <a href="#TunSize">kettle size</a>, more common units for the <a href="#MashSize">mash size/thickness</a> calculator (qt/lbs and L/kg), fix bug with dilution (US version only), convert values when changing units
+                </li>
+                <li>
                   <strong>1.8</strong> (17-Jun-2016): <a href="#PrimingSugar">Priming Sugar</a> added
                 </li>
                 <li>
@@ -1103,6 +1182,6 @@ this stuff is worth it, you can buy me a beer in return.   Eirik H
       <!-- Placed at the end of the document so the pages load faster -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
-      <script src="js/main.js?ver=1.81"></script>
+      <script src="js/main.js?ver=1.814"></script>
     </body>
     </html>
