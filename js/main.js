@@ -98,9 +98,20 @@ $().ready(function () {
           $this.parent().find('.form-control').attr('placeholder',placeholderName);
         });
 
+        // kg/liter (not used I believe)
+
         unitName = isMetric() ? 'kg/liter' : 'lbs/gal.';
         placeholderName = '0 ' + unitName;
         $('.hbcKiloLiterRatio').each(function(index) {
+          var $this = $(this);
+          $this.parent().find('.form-control').attr('placeholder',placeholderName);
+        });
+
+        // liter/kg
+
+        unitName = isMetric() ? 'L/kg' : 'qt/lbs.';
+        placeholderName = '0 ' + unitName;
+        $('.hbcLiterKiloRatio').each(function(index) {
           var $this = $(this);
           $this.parent().find('.form-control').attr('placeholder',placeholderName);
         });
@@ -246,17 +257,19 @@ function ccEBC() {
 }
 
 function ms() { // mash size
-    var grainWeight = getWeight($('#MSGrainWeightInput'));
+    var grainWeight = getGenericNumberVal($('#MSGrainWeightInput'));
     var mashTickness = getGenericNumberVal($('#MSMashTicknessInput'));
 
     $msVal = $('#MSCalcValue');
 
     if (grainWeight && mashTickness) {
         var totalSize = 0;
-        totalSize = grainWeight * (.67 + mashTickness);
-        if(!isMetric()) {
-          totalSize = HBCConverter.LtoGal(totalSize);
+        if(isMetric()) {
+          totalSize = grainWeight * (.67 + mashTickness);
+        } else {
+          totalSize = grainWeight * (.08 + mashTickness/4);
         }
+        
         setOKOutputValue($msVal,Math.round(totalSize * 100) / 100)
     } else {
         setNAOutputValue($msVal);
@@ -502,14 +515,13 @@ function dlw() {
 function dlg() {
     var initGravity = getGenericNumberVal($('#DLGInitialGravityInput'));
     var wortVolume = getVolume($('#DLGInitVolumeInput'));
-    var targetWolume = getGenericNumberVal($('#DLGTargetVolumeInput'));
+    var targetWolume = getVolume($('#DLGTargetVolumeInput'));
 
     $dlgVal = $('#DLGCalcValue');
 
     if (initGravity && targetWolume && wortVolume) {
         initGravity -= 1;
-        var finalGravity = 0.0;
-        finalGravity = (wortVolume * initGravity / targetWolume) + 1;
+        var finalGravity = (wortVolume * initGravity / targetWolume) + 1;
         setOKOutputValue($dlgVal,Math.round(finalGravity * 1000) / 1000);
     } else {
         setNAOutputValue($dlgVal);
