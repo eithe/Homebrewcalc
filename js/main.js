@@ -518,13 +518,16 @@ function kc() { // keg carbonation
     var wantedCO2 = getGenericNumberVal($('#KCVolumesInput')) || 0;
 
     $kcVal = $('#KCCalcValue');
+    $kcBarVal = $('#KCBarCalcValue');
 
     if((kegTemp || kegTemp == 0) && wantedCO2) {
       kegTempFahrenheit = HBCConverter.CtoF(kegTemp); // I didn't convert this formula to use Celcius so just convert the temp to Fahrenheit first
       var kegPressure = -16.6999 - 0.0101059 * kegTempFahrenheit + 0.00116512 * Math.pow(kegTempFahrenheit,2) + 0.173354 * kegTempFahrenheit * wantedCO2 + 4.24267 * wantedCO2 - 0.0684226 * Math.pow(wantedCO2,2);
       setOKOutputValue($kcVal,Math.round(kegPressure * 10) / 10);
+      setOKOutputValue($kcBarVal,Math.round(HBCConverter.PsiToBar(kegPressure) * 100) / 100);
     } else {
       setNAOutputValue($kcVal);
+      setNAOutputValue($kcBarVal);
     }
 }
 
@@ -846,5 +849,11 @@ var HBCConverter = {
   },
   OzToG : function(oz) {
     return oz / 0.035274;
+  },
+  PsiToBar: function(psi) {
+    return 0.0689475729 * psi;
+  },
+  BarToPsi: function(bar) {
+    return psi / 0.0689475729;
   }
 }
