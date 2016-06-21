@@ -177,3 +177,22 @@ body {
 }
 
 /* /Homebrew Calc */
+
+/** http://stackoverflow.com/questions/19203816/vertical-divider-doesnt-work-in-bootstrap-3 */
+
+.nav-sidebar .divider {
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.nav-sidebar .divider.disabled a {
+    color: #666;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.nav>li.disabled>a:hover, .nav>li.disabled>a:focus {
+  color: #333;
+  cursor: default; !important;
+}
+
+/** /end navbar divider */

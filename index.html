@@ -12,7 +12,7 @@
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css?ver=1.6" rel="stylesheet">
+  <link href="css/main.css?ver=1.83" rel="stylesheet">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -41,36 +41,43 @@
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a href="#Overview">Overview</a></li>
+          <li class="active"><a href="#Overview">Home</a></li>
           <li><a href="#StrikeTemp">Strike Temperature</a></li>
+          <li><a href="#AlcoholCalc">Alcohol by Volume</a></li>
           <li><a href="#MashInfusion">Mash Infusion</a></li>
           <li><a href="#WaterHeating">Water Heating</a></li>
           <li><a href="#DilutionWater">Dilution</a></li>
           <li><a href="#MashSize">Mash Size</a></li>
-          <li><a href="#TunSize">Brew Kettle Size</a></li>
-        </ul>
-        <ul class="nav nav-sidebar">
+
+          <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Hops</a></li>
+
           <li><a href="#HopsAlpha">Hops Alpha Adjustment</a></li>
           <li><a href="#HopStorage">Hops Storage</a></li>
-        </ul>
-        <ul class="nav nav-sidebar">
-          <li><a href="#AlcoholCalc">Alcohol by Volume</a></li>
+
+          <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Carbonation &amp; Kegging</a></li>
+
           <li><a href="#PrimingSugar">Priming Sugar</a></li>
           <li><a href="#KegCarbonation">Keg Carbonation</a></li>
+          <li><a href="#LineBalancing">Keg Line Balancing</a></li>
+
+          <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Equipment</a></li>
+
+          <li><a href="#TunSize">Brew Kettle Size</a></li>
           <li><a href="#HydroTemp">Hydrometer Temp. Adj.</a></li>
           <li><a href="#RefractAlcohol">Refractometer Alcohol Adj.</a></li>
+
+          <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Misc</a></li>
+
           <li><a href="#BrixGravity">Brix &lt;-&gt; Gravity</a></li>
           <li><a href="#ColorCalc">Color</a></li>
-        </ul>
-        <ul class="nav nav-sidebar">
           <li><a href="#BIABChecklist">The BIAB Checklist</a></li>
-          <li><a href="#Misc">Misc</a></li>
+          <li><a href="#Changelog">Changelog</a></li>
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="hbcAnchor" id="Overview">
           <h1>Free, simple homebrew calculators + BIAB checklist for every day use.</h1>
-          <p>A collection of the hops, yeast, malt and equipment calculators I use for brewing + my BIAB checklist. If you have any suggestions you can drop me a line on on post at eirikh no.<br/>
+          <p>A collection of the hops, yeast, malt and equipment calculators I use for brewing. If you have any suggestions you can drop me a line on on post at eirikh no.<br/>
             <br/></p>
             <div class="hbcUnitSelectors">
               <h2>Units</h2>
@@ -136,6 +143,71 @@
                   </div>
                 </form>
                 <small></small>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="AlcoholCalc">
+            <div class="panel panel-primary panel-calculator">
+              <div class="panel-heading"><strong>Alcohol by Volume Calculator</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates your <abbr title="Alcohol By Volume">ABV</abbr> based on your <abbr title="Original Gravity">OG</abbr> and <abbr title="Specific Gravity">SG</abbr>/<abbr title="Final Gravity">FG</abbr>. Inspired by <a href="https://www.brewtoad.com/tools/alcohol-calculator">brewtoad</a>, but with the <a href="http://www.brewersfriend.com/2011/06/16/alcohol-by-volume-calculator-updated/">alternative ABV formula</a>.
+                </p>
+                <h4>Gravity version</h4>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Original Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="ACOGInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Specific Gravity</span>
+                        <input type="number" step="0.001" class="form-control" id="ACSGInput" placeholder="1.xxx"/>
+                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <h4>Brix version</h4>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Original Brix</span>
+                        <input type="number" step="0.001" class="form-control" id="ACOGBrixInput" placeholder="0 °Bx"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Specific Brix</span>
+                        <input type="number" step="0.001" class="form-control" id="ACSGBrixInput" placeholder="0 °Bx"/>
+                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="ACCalcValue"> --- </span> % ABV
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="ACCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -420,70 +492,6 @@
             </div>
           </div>
 
-          <div class="hbcAnchor" id="TunSize">
-            <div class="panel panel-primary panel-calculator">
-              <div class="panel-heading"><strong>Brew Kettle Size</strong></div>
-              <div class="panel-body">
-                <p>
-                  Calculates the volume of your brew tun/kettle.
-                </p>
-                <form class="form-horizontal" role="form">
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-addon hbcLeftAddon">Kettle Diameter</span>
-                        <input type="number" step="0.001" class="form-control hbcLengthCMInput" id="TSVDiameterInput" placeholder="0 cm"/>
-                        <span class="input-group-addon hbcLengthAddon" title="Length"><strong>cm</strong> </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-addon hbcLeftAddon">Kettle Height</span>
-                        <input type="number" step="0.001" class="form-control hbcLengthCMInput" id="TSVHeightInput" placeholder="0 cm"/>
-                        <span class="input-group-addon hbcLengthAddon" title="Length"><strong>cm</strong> </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-addon hbcLeftAddon" title="Adjustments due to equipment in your kettle and/or its bottom radius">Dead space / rd. corner adj.</span>
-                        <input type="number" step="0.001" class="form-control" id="TSDeadSpaceInput" placeholder="0 %"/>
-                        <span class="input-group-addon hbcPercentAddon" title="Percent"><strong>%</strong> </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <div class="col-sm-3">
-                        <div class="well well-sm">
-                          <span class="hbcResult hbcResultNA" id="TSVCalcValue"> --- </span> <span class="hbcVolumeUnitName">L</span>
-                        </div>
-                      </div>
-                      <div class="col-sm-7">
-                        <button type="button" class="btn btn-default btn-lg" id="TSVCalcBtn">Recalculate</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <div class="col-sm-3">
-                        <div class="well well-sm">
-                          <span class="hbcResult hbcResultNA" id="TSHeightCalcValue"> --- </span> <span class="hbcLengthCMUnitName">cm</span>. (height of 1 <span class="hbcVolumeUnitName">L</span>)
-                        </div>
-                      </div>
-                      <div class="col-sm-7">
-
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
           <div class="hbcAnchor" id="HopsAlpha">
             <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Hops Alpha Adjustment</strong></div>
@@ -634,71 +642,6 @@
                       </div>
                       <div class="col-sm-7">
                         <button type="button" class="btn btn-default btn-lg" id="HSCalcBtn">Recalculate</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div class="hbcAnchor" id="AlcoholCalc">
-            <div class="panel panel-primary panel-calculator">
-              <div class="panel-heading"><strong>Alcohol by Volume Calculator</strong></div>
-              <div class="panel-body">
-                <p>
-                  Estimates your <abbr title="Alcohol By Volume">ABV</abbr> based on your <abbr title="Original Gravity">OG</abbr> and <abbr title="Specific Gravity">SG</abbr>/<abbr title="Final Gravity">FG</abbr>. Inspired by <a href="https://www.brewtoad.com/tools/alcohol-calculator">brewtoad</a>, but with the <a href="http://www.brewersfriend.com/2011/06/16/alcohol-by-volume-calculator-updated/">alternative ABV formula</a>.
-                </p>
-                <h4>Gravity version</h4>
-                <form class="form-horizontal" role="form">
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-addon hbcLeftAddon">Original Gravity</span>
-                        <input type="number" step="0.001" class="form-control" id="ACOGInput" placeholder="1.xxx"/>
-                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-addon hbcLeftAddon">Specific Gravity</span>
-                        <input type="number" step="0.001" class="form-control" id="ACSGInput" placeholder="1.xxx"/>
-                        <span class="input-group-addon hbcRatioAddon" title="Ratio"><strong>:</strong> </span>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <h4>Brix version</h4>
-                <form class="form-horizontal" role="form">
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-addon hbcLeftAddon">Original Brix</span>
-                        <input type="number" step="0.001" class="form-control" id="ACOGBrixInput" placeholder="0 °Bx"/>
-                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-addon hbcLeftAddon">Specific Brix</span>
-                        <input type="number" step="0.001" class="form-control" id="ACSGBrixInput" placeholder="0 °Bx"/>
-                        <span class="input-group-addon hbcBrixAddon" title="Brix degrees"><strong>°Bx</strong> </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <div class="col-sm-3">
-                        <div class="well well-sm">
-                          <span class="hbcResult hbcResultNA" id="ACCalcValue"> --- </span> % ABV
-                        </div>
-                      </div>
-                      <div class="col-sm-7">
-                        <button type="button" class="btn btn-default btn-lg" id="ACCalcBtn">Recalculate</button>
                       </div>
                     </div>
                   </div>
@@ -867,6 +810,131 @@
                       </div>
                       <div class="col-sm-7">
                         <button type="button" class="btn btn-default btn-lg" id="KCCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="LineBalancing">
+            <div class="panel panel-primary panel-calculator">
+              <div class="panel-heading"><strong>Keg Line Length Balancing</strong></div>
+              <div class="panel-body">
+                <p>
+                  Estimates the line length for your draft beer keg system. Based on the formula from <a href="http://beersmith.com/blog/2011/07/14/keg-line-length-balancing-the-science-of-draft-beer/">beersmith.com</a>; L = (Keg Pressure – 1 – (Height/2)) / Resistance.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Keg Pressure</span>
+                        <input type="number" step="0.1" class="form-control hbcPressureInput" id="LBPressureInput" placeholder="0 bar"/>
+                        <span class="input-group-addon hbcPressureAddon">bar</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon"><abbr title="Changes in elevation between the middle of your keg to your tap. Set to negative if your tap is lower than your keg.">Elevation height</abbr></span>
+                        <input type="number" step="0.1" class="form-control hbcLengthMInput" id="LBHeightInput" placeholder="0 m"/>
+                        <span class="input-group-addon hbcLengthMAddon">cm</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon"><abbr title="You get this from your line manufacturer">Line Resistance</abbr></span>
+                        <select class="form-control" id="LBResistanceSelect">
+                          <option value="3">3/16″ (4.75 cm) ID vinyl tubing (3 psi/ft)</option>
+                          <option value="0.85">1/4″ (6.35 cm) ID vinyl tubing (0.85 psi/ft)</option>
+                          <option value="2.2">3/16″ (4.75 cm) ID Polyethylene tubing (2.2 psi/ft)</option>
+                          <option value="0.5">1/4″ (6.35 cm) ID Polyethylene tubing (0.5 psi/ft)</option>
+                          <option value="0.2">3/8″ (9.5 cm) OD Stainless tubing (0.2 psi/ft)</option>
+                          <option value="0.5">5/16″ (7.9cm) OD Stainless tubing (0.5 psi/ft)</option>
+                          <option value="2">1/4″ (6.35 cm) OD Stainless tubing (2 psi/ft)</option>
+                        </select>
+                        <span class="input-group-addon hbcRatioAddon">:</span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="LBCalcValue"> --- </span> <span class="hbcLengthMUnitName">m</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="LBCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="hbcAnchor" id="TunSize">
+            <div class="panel panel-primary panel-calculator">
+              <div class="panel-heading"><strong>Brew Kettle Size</strong></div>
+              <div class="panel-body">
+                <p>
+                  Calculates the volume of your brew tun/kettle.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Kettle Diameter</span>
+                        <input type="number" step="0.001" class="form-control hbcLengthCMInput" id="TSVDiameterInput" placeholder="0 cm"/>
+                        <span class="input-group-addon hbcLengthCmAddon" title="Length"><strong>cm</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon">Kettle Height</span>
+                        <input type="number" step="0.001" class="form-control hbcLengthCMInput" id="TSVHeightInput" placeholder="0 cm"/>
+                        <span class="input-group-addon hbcLengthCmAddon" title="Length"><strong>cm</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-addon hbcLeftAddon" title="Adjustments due to equipment in your kettle and/or its bottom radius">Dead space / rd. corner adj.</span>
+                        <input type="number" step="0.001" class="form-control" id="TSDeadSpaceInput" placeholder="0 %"/>
+                        <span class="input-group-addon hbcPercentAddon" title="Percent"><strong>%</strong> </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="TSVCalcValue"> --- </span> <span class="hbcVolumeUnitName">L</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-default btn-lg" id="TSVCalcBtn">Recalculate</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-3">
+                        <div class="well well-sm">
+                          <span class="hbcResult hbcResultNA" id="TSHeightCalcValue"> --- </span> <span class="hbcLengthCMUnitName">cm</span>. (height of 1 <span class="hbcVolumeUnitName">L</span>)
+                        </div>
+                      </div>
+                      <div class="col-sm-7">
+
                       </div>
                     </div>
                   </div>
@@ -1150,10 +1218,13 @@
             </div>
           </div>
 
-          <div class="hbcAnchor" id="Misc">
+          <div class="hbcAnchor" id="Changelog">
             <div class="well well-sm">
               <h4>Changelog</h4>
               <ul>
+                <li>
+                  <strong>1.83</strong> (21-Jun-2016): Added <a href="#LineBalancing">Keg Line Balancing</a>, and reordered the menu with categories.
+                </li>
                 <li>
                   <strong>1.82</strong> (20-Jun-2016): Also added Bar to <a href="#KegCarbonation">Keg Carbonation</a>.
                 </li>
@@ -1197,6 +1268,6 @@ this stuff is worth it, you can buy me a beer in return.   Eirik H
       <!-- Placed at the end of the document so the pages load faster -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
-      <script src="js/main.js?ver=1.82"></script>
+      <script src="js/main.js?ver=1.83"></script>
     </body>
     </html>

@@ -159,7 +159,7 @@ $().ready(function () {
         unitName = isMetric() ? 'cm' : 'in';
         placeholderName = '0 ' + unitName;
 
-        $('.hbcLengthAddon').each(function(index) {
+        $('.hbcLengthCmAddon').each(function(index) {
           var $this = $(this);
           $this.text(unitName);
           $this.parent().find('.form-control').attr('placeholder',placeholderName);
@@ -176,6 +176,60 @@ $().ready(function () {
                   $(this).val(Math.round(HBCConverter.InchToCm($val) * 100) / 100);
                 } else {
                   $(this).val(Math.round(HBCConverter.CmToInch($val) * 100) / 100);
+                }
+              }
+            });
+        }
+
+        // LENGTH (M)
+
+        unitName = isMetric() ? 'm' : 'ft';
+        placeholderName = '0 ' + unitName;
+
+        $('.hbcLengthMAddon').each(function(index) {
+          var $this = $(this);
+          $this.text(unitName);
+          $this.parent().find('.form-control').attr('placeholder',placeholderName);
+        });
+
+        $('.hbcLengthMUnitName').text(unitName);
+
+        // convert:
+        if(hasSwitched) {
+          $('.hbcLengthMInput').each(function(index) {
+              var $val = $(this).val();
+              if ($val) {
+                if(isMetric()) {
+                  $(this).val(Math.round(HBCConverter.FtToM($val) * 100) / 100);
+                } else {
+                  $(this).val(Math.round(HBCConverter.MtoFt($val) * 100) / 100);
+                }
+              }
+            });
+        }
+
+        // Pressure (Bar)
+
+        unitName = isMetric() ? 'bar' : 'PSI';
+        placeholderName = '0 ' + unitName;
+
+        $('.hbcPressureAddon').each(function(index) {
+          var $this = $(this);
+          $this.text(unitName);
+          $this.parent().find('.form-control').attr('placeholder',placeholderName);
+        });
+
+        $('.hbcPressureUnitName').text(unitName);
+
+        // convert:
+        if(hasSwitched) {
+          $('.hbcPressureInput').each(function(index) {
+              var $val = $(this).val();
+              if ($val) {
+                if(isMetric()) {
+                  $(this).val(Math.round(HBCConverter.PsiToBar($val) * 100) / 100);
+                } else {
+                  $(this).val(Math.round(HBCConverter.BarToPsi($val) * 100) / 100);
                 }
               }
             });
@@ -269,6 +323,11 @@ $().ready(function () {
     var kcChangeHandler = function () { kc(); }
     $('#KCTempInput,#KCVolumesInput').on(events, kcChangeHandler);
     $('#KCCalcBtn').click(getRecalcTimeoutFunc('#KCCalcValue',kcChangeHandler));
+
+    // line balancing
+    var lbChangeHandler = function () { lb(); }
+    $('#LBPressureInput,#LBHeightInput,#LBResistanceSelect').on(events, lbChangeHandler);
+    $('#LBCalcBtn').click(getRecalcTimeoutFunc('#LBCalcValue',lbChangeHandler));
 
     // Hydrometer temp. adj.
     var htChangeHandler = function () { ht(); }
@@ -531,6 +590,25 @@ function kc() { // keg carbonation
     }
 }
 
+function lb() { // line balancing
+    var kegPressure = getPressure($('#LBPressureInput'));
+    var height = getLength($('#LBHeightInput')) || 0;
+    var resistance = getGenericNumberVal($('#LBResistanceSelect'));
+
+    $lbVal = $('#LBCalcValue');
+
+    if(kegPressure && height && resistance) {
+      resistance =  HBCConverter.PsiToBar(HBCConverter.FtToMFraction(resistance)); // convert psi/ft to bar/m
+      var lineLength = (kegPressure - HBCConverter.PsiToBar(1) - (height*0.113)) / resistance;
+      if(!isMetric()) {
+        lineLength = HBCConverter.MtoFt(lineLength);
+      }
+      setOKOutputValue($lbVal,Math.round(lineLength * 100) / 100);
+    } else {
+      setNAOutputValue($lbVal);
+    }
+}
+
 function ht() { // hydrometer temp.
     var sg = getGenericNumberVal($('#HTSGInput'));
     var temp = getTemp($('#HTTempInput'));
@@ -746,10 +824,23 @@ function getTemp($element) {
     return val;
 }
 
+function getPressure($element) {
+    var val = parseFloat($element.val(), 10);
+    if(!isMetric()) {
+      val = HBCConverter.PsiToBar(val);
+    }
+    setInputValidation($element, val);
+    return val;
+}
+
 function getLength($element) {
     var val = parseFloat($element.val(), 10);
     if(!isMetric()) {
-      val = HBCConverter.InchToCm(val);
+      if($element.hasClass('hbcLengthCmInput')) {
+        val = HBCConverter.InchToCm(val);
+      } else if($element.hasClass('hbcLengthMInput')) {
+        val = HBCConverter.FtToM(val);
+      }
     }
     setInputValidation($element, val);
     return val;
@@ -844,6 +935,15 @@ var HBCConverter = {
   InchToCm : function(inch) {
     return inch / 0.39370;
   },
+  MtoFt : function(m) {
+    return m / 0.3048;
+  },
+  FtToM : function(ft) {
+    return ft * 0.3048;
+  },
+  FtToMFraction : function(ft) {
+    return ft * (1/0.3048);
+  },
   GToOz : function(grams) {
     return grams * 0.035274;
   },
@@ -854,6 +954,6 @@ var HBCConverter = {
     return 0.0689475729 * psi;
   },
   BarToPsi: function(bar) {
-    return psi / 0.0689475729;
+    return bar / 0.0689475729;
   }
 }
