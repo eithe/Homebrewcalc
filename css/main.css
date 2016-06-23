@@ -176,6 +176,32 @@ body {
     text-align:left;
 }
 
+.slider-selection {
+	background: #BABABA;
+}
+
+.slider.slider-horizontal {
+  width: 90%;
+  margin-left: 20px;
+}
+
+.input-group-addon.hbcLeftAddonBorder {
+  border-right: 1px solid #ccc !important;
+}
+
+.input-group-addon.hbcRightAddonBorder {
+  border-left: 1px solid #ccc !important;
+}
+
+.hbcTime {
+  color: #5cb85c;
+  font-weight: bold;
+}
+
+.container-fluid {
+  overflow: hidden;
+}
+
 /* /Homebrew Calc */
 
 /** http://stackoverflow.com/questions/19203816/vertical-divider-doesnt-work-in-bootstrap-3 */

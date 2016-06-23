@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="minimum-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no" name="viewport" />
   <meta name="description" content="Free and simple brewing calculators for hops, yeast, malt, wort, water, BIAB and equipment.">
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="favicon.ico">
@@ -12,7 +14,8 @@
 
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/main.css?ver=1.83" rel="stylesheet">
+  <link href="css/bootstrap-slider.min.css" rel="stylesheet">
+  <link href="css/main.css?ver=1.843" rel="stylesheet">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -49,16 +52,17 @@
           <li><a href="#DilutionWater">Dilution</a></li>
           <li><a href="#MashSize">Mash Size</a></li>
 
-          <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Hops</a></li>
+          <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Hops &amp; Additions</a></li>
 
           <li><a href="#HopsAlpha">Hops Alpha Adjustment</a></li>
           <li><a href="#HopStorage">Hops Storage</a></li>
+          <li><a href="#HopsScheduler">Hop Scheduler <span class="label label-success">new</span></a></li>
 
           <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Carbonation &amp; Kegging</a></li>
 
           <li><a href="#PrimingSugar">Priming Sugar</a></li>
           <li><a href="#KegCarbonation">Keg Carbonation</a></li>
-          <li><a href="#LineBalancing">Keg Line Balancing</a></li>
+          <li><a href="#LineBalancing">Keg Line Balancing <span class="label label-success">new</span></a></li>
 
           <li role="presentation" class="divider disabled"><a href="javascript:void(0);">Equipment</a></li>
 
@@ -650,6 +654,114 @@
             </div>
           </div>
 
+          <div class="hbcAnchor" id="HopsScheduler">
+            <div class="panel panel-primary">
+              <div class="panel-heading"><strong>Hops Scheduler</strong></div>
+              <div class="panel-body">
+                <p>
+                  Enter your hops schedule, click start and we will notify you (by sound) when you need to add hops to your boil and when the boil has finished.
+                </p>
+                <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <h3>Total boil time <small>(minutes)</small></h3>
+                      <div class="well">
+                        <input class="form-control" id="HopsSchedulerBoilTimeInput" data-slider-id='HopsSchedulerBoilTimeSlider' type="text" data-slider-min="30" data-slider-max="90" data-slider-step="1" data-slider-value="60" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr class="hbcHopsSchedulerHeaderRow">
+                            <th>#</th>
+                            <th>Boil time (minutes)</th>
+                            <th>Hops / Addition</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><h5><b>1</b></h5></td>
+                            <td>
+                                <input class="form-control hbcHopsSchedulerTimeInput" data-elapsed="false" id="HopsSchedulerTime1Input" type="number" step="0.1" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="(optional)" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><h5><b>2</b></h5></td>
+                            <td>
+                                <input class="form-control hbcHopsSchedulerTimeInput" data-elapsed="false" id="HopsSchedulerTime2Input" type="number" step="0.1" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="(optional)" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><h5><b>3</b></h5></td>
+                            <td>
+                                <input class="form-control hbcHopsSchedulerTimeInput" data-elapsed="false" id="HopsSchedulerTime3Input" type="number" step="0.1" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="(optional)" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><h5><b>4</b></h5></td>
+                            <td>
+                                <input class="form-control hbcHopsSchedulerTimeInput" data-elapsed="false" id="HopsSchedulerTime4Input" type="number" step="0.1" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="(optional)" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><h5><b>5</b></h5></td>
+                            <td>
+                                <input class="form-control hbcHopsSchedulerTimeInput" data-elapsed="false" id="HopsSchedulerTime5Input" type="number" step="0.1" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="(optional)" />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><h5><b>6</b></h5></td>
+                            <td>
+                                <input class="form-control hbcHopsSchedulerTimeInput" data-elapsed="false" id="HopsSchedulerTime6Input" type="number" step="0.1" class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" placeholder="(optional)" />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="col-sm-7">
+                        <button type="button" class="btn btn-success btn-lg" id="HopsSchedulerStartBtn">Start</button>
+                        <button type="button" class="btn btn-warning btn-lg" id="HopsSchedulerPauseBtn">Pause</button>
+                        <button type="button" class="btn btn-danger btn-lg" id="HopsSchedulerStopBtn">Reset</button>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="well well-sm">
+                            <h4>Elapsed time: <span id="HopsSchedulerElapHoursSpan" class="hbcTime">00</span>:<span id="HopsSchedulerElapMinutesSpan" class="hbcTime">00</span>:<span id="HopsSchedulerElapSecondsSpan" class="hbcTime">00</span>
+                              <span id="HopsSchedulerStatusSpan" class="hbcSchedulerStatusSpan muted"></span>
+                            </h4>
+                            <h4>Remaining time: <span id="HopsSchedulerRemainHoursSpan" class="hbcTime">00</span>:<span id="HopsSchedulerRemainMinutesSpan" class="hbcTime">00</span>:<span id="HopsSchedulerRemainSecondsSpan" class="hbcTime">00</span>
+                            </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
           <div class="hbcAnchor" id="PrimingSugar">
             <div class="panel panel-primary panel-calculator">
               <div class="panel-heading"><strong>Priming Sugar Calculator</strong></div>
@@ -1223,6 +1335,9 @@
               <h4>Changelog</h4>
               <ul>
                 <li>
+                  <strong>1.84</strong> (22-Jun-2016): Added a <a href="#HopsScheduler">Hops Scheduler</a>, and I now save your metric/US preference.
+                </li>
+                <li>
                   <strong>1.83</strong> (21-Jun-2016): Added <a href="#LineBalancing">Keg Line Balancing</a>, and reordered the menu with categories.
                 </li>
                 <li>
@@ -1268,6 +1383,9 @@ this stuff is worth it, you can buy me a beer in return.   Eirik H
       <!-- Placed at the end of the document so the pages load faster -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
-      <script src="js/main.js?ver=1.83"></script>
+      <script src="js/ion.sound.min.js"></script>
+      <script src="js/bootstrap-slider.min.js"></script>
+      <script src="js/lockr.js" type="text/javascript"></script>
+      <script src="js/main.js?ver=1.843"></script>
     </body>
     </html>

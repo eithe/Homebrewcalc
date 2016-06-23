@@ -17,12 +17,21 @@ $().ready(function () {
     });
 
     // add unit switch to each calc
-    $('.hbcAnchor .panel-heading').each(function(index) {
+    $('.hbcAnchor .panel-calculator .panel-heading').each(function(index) {
       $(this).append('<div class="pull-right"><button type="button" class="btn btn-success btn-xs hbcUnitBtn hbcMetricBtn">Metric</button> <button type="button" class="btn btn-primary btn-xs hbcUnitBtn hbcUSBtn">US</button></div>');
     });
 
+    // check stored isMetric local storage value and set to non-metric if metric is false
+    var storedisMetric = Lockr.get("metric",true);
+    if(!storedisMetric) {
+      switchUnits();
+    }
+
     // on unit switch btn click
-    $('.hbcUnitBtn').on("click", function () {
+    $('.hbcUnitBtn').on("click", switchUnits);
+
+    // switches units between metric and US
+    function switchUnits() {
         // figure out if we have switched units now
         var hasSwitched = false;
         if($(this).hasClass('hbcMetricBtn')) {
@@ -41,6 +50,8 @@ $().ready(function () {
         } else {
           $('.hbcUSBtn').removeClass("btn-default").addClass("btn-success");
         }
+
+        Lockr.set("metric",isMetric()); // store for next visit!
 
         // reset all calc values
         setNAOutputValue($('.hbcResult'));
@@ -253,7 +264,7 @@ $().ready(function () {
           $this.text(unitName);
           $this.parent().find('.form-control').attr('placeholder',placeholderName);
         });
-    });
+    }
 
     var events = 'change keypress paste focus textInput input'; // change events that trigger recalc, there are probably too many here, but what the heck, cpu is cheap these days, even in js
 
@@ -357,7 +368,142 @@ $().ready(function () {
 
     var ccEBCChangeHandler = function () { ccEBC(); }
     $('#CCEBCInput').on(events, ccEBCChangeHandler);
+
+
+    // setup sound for hops scheduler
+    ion.sound({
+        sounds: [
+            {
+                name: "bell_ring"
+            }
+        ],
+        volume: 1,
+        path: "files/",
+        preload: true,
+        multiplay: true,
+    });
+
+    // hops scheduler buttons
+
+    $('#HopsSchedulerStartBtn').on('click touchend',startHopsScheduler);
+    $('#HopsSchedulerPauseBtn').click(pauseHopsScheduler);
+    $('#HopsSchedulerStopBtn').click(stopHopsSchedulerHandler);
+
+    // slider for hops time
+    $('#HopsSchedulerBoilTimeInput').slider({
+    	formatter: function(value) {
+    		return 'Total boil time: ' + value + ' min';
+    	},
+      ticks: [30, 60, 90],
+      ticks_positions: [0, 60, 100],
+      ticks_labels: ['30', '60', '90'],
+    });
 });
+
+var hopsSchedulerInterval = null;
+var hopsSchedulerSeconds = 0;
+
+function startHopsScheduler() {
+  if(!hopsSchedulerInterval) { // only start if it's not already running
+    ion.sound.play("bell_ring");
+    var $elapHourSpan = $('#HopsSchedulerElapHoursSpan');
+    var $elapMinSpan = $('#HopsSchedulerElapMinutesSpan');
+    var $elapSecSpan = $('#HopsSchedulerElapSecondsSpan');
+    var $remainHourSpan = $('#HopsSchedulerRemainHoursSpan');
+    var $remainMinSpan = $('#HopsSchedulerRemainMinutesSpan');
+    var $remainSecSpan = $('#HopsSchedulerRemainSecondsSpan');
+    var $timeInputs = $('.hbcHopsSchedulerTimeInput');
+    $('.hbcHopsSchedulerHeaderRow').addClass("info");
+
+    runHopsScheduler();
+    hopsSchedulerInterval = setInterval(runHopsScheduler, 1000);
+
+    function runHopsScheduler() {
+      ++hopsSchedulerSeconds;
+      var totalBoilTime = getHopsSchedulerBoilTime();
+      if(hopsSchedulerSeconds > totalBoilTime * 60) {
+        $('#HopsSchedulerStatusSpan').text(" (finished)");
+        stopHopsScheduler(false);
+        ion.sound.play("bell_ring");
+        setTimeout(function() {
+          ion.sound.play("bell_ring");
+        },10);
+      } else {
+
+        $timeInputs.each(function(index) {
+          var timerVal = getGenericNumberVal($(this));
+          if(!$(this).data("elapsed")) {
+            if(timerVal && hopsSchedulerSeconds >= timerVal*60 ) {
+              hopsScheduleReached($(this));
+            }
+          }
+        });
+        var hours = parseInt(hopsSchedulerSeconds/3600);
+        $elapHourSpan.text(padZero(hours));
+        $elapMinSpan.text(padZero(parseInt((hopsSchedulerSeconds - hours * 3600)/60)));
+        $elapSecSpan.text(padZero(hopsSchedulerSeconds%60));
+
+        var remainSeconds = (totalBoilTime * 60) - hopsSchedulerSeconds;
+        var remainHours = parseInt(remainSeconds/3600);
+
+        $remainHourSpan.text(padZero(remainHours));
+        $remainMinSpan.text(padZero(parseInt((remainSeconds - remainHours * 3600)/60)));
+        $remainSecSpan.text(padZero(remainSeconds%60));
+
+      }
+
+    }
+  }
+
+}
+
+function hopsScheduleReached($el) {
+  $el.data("elapsed",true);
+  $el.closest("tr").addClass("success");
+  ion.sound.play("bell_ring");
+}
+
+function pauseHopsScheduler() {
+  clearInterval(hopsSchedulerInterval);
+  hopsSchedulerInterval = null;
+}
+
+function stopHopsSchedulerHandler() {
+  stopHopsScheduler(true);
+}
+
+function stopHopsScheduler(resetDisplay) {
+  pauseHopsScheduler();
+  hopsSchedulerSeconds = 0;
+  if(resetDisplay) {
+    $('#HopsSchedulerElapHoursSpan').text('00');
+    $('#HopsSchedulerElapMinutesSpan').text('00');
+    $('#HopsSchedulerElapSecondsSpan').text('00');
+    $('#HopsSchedulerStatusSpan').text('');
+    $('#HopsSchedulerRemainHoursSpan').text('00');
+    $('#HopsSchedulerRemainMinutesSpan').text('00');
+    $('#HopsSchedulerRemainSecondsSpan').text('00');
+  }
+  $('.hbcHopsSchedulerTimeInput').data("elapsed",false).closest("tr").removeClass("success");
+  $('.hbcHopsSchedulerHeaderRow').removeClass("info");
+}
+
+function getHopsSchedulerBoilTime() {
+  return $('#HopsSchedulerBoilTimeInput').slider('getValue');
+}
+
+function padZero(val)
+   {
+       var valString = val + "";
+       if(valString.length < 2)
+       {
+           return "0" + valString;
+       }
+       else
+       {
+           return valString;
+       }
+   }
 
 function ccSRM() {
   var $srmEl = $('#CCSRMInput');
