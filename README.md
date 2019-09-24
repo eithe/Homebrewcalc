@@ -1,2 +1,2 @@
 # Homebrewcalc
-Just the source code for [homebrewcalc.com](http://homebrewcalc.com)
+Just the source code for [https://eithe.github.io/Homebrewcalc/](https://eithe.github.io/Homebrewcalc/)
