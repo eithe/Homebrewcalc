@@ -147,7 +147,7 @@ body {
     text-align: right;
 }
 
-.hbcResult {
+.hbcResult, .hbcResultUnit {
     font-weight: bold;
     font-size: 1.2em;
 }

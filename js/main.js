@@ -55,6 +55,7 @@ $().ready(function () {
 
         // reset all calc values
         setNAOutputValue($('.hbcResult'));
+        setNAOutput($('.hbcResultUnit'));
 
         // WEIGHT (kilo)
         var unitName = 'kg';
@@ -683,6 +684,8 @@ function ps() { // priming sugar
     var wantedCO2 = getGenericNumberVal($('#PSVolumesInput')) || 0;
 
     $psResidualCO2 = $('#PSBeerCO2CalcValue');
+    $psABVValue = $('#PSABVCalcValue');
+    $psABVUnit = $('#PSABVCalcUnit');
     $psSugarVal = $('#PSSugarCalcValue');
     $psCornVal = $('#PSCornCalcValue');
     $psDMEVal = $('#PSDMECalcValue');
@@ -694,6 +697,8 @@ function ps() { // priming sugar
           var sugarWeight = (wantedCO2-beerCO2)*beerVol/0.25;
           var cornWeight = sugarWeight/0.91;
           var dmeWeight = sugarWeight/(0.82 * 0.80);
+          var abv = (sugarWeight/beerVol)/17;
+
           if(!isMetric()) {
             sugarWeight = HBCConverter.GToOz(sugarWeight);
             cornWeight = HBCConverter.GToOz(cornWeight);
@@ -702,10 +707,14 @@ function ps() { // priming sugar
           setOKOutputValue($psSugarVal,Math.round(sugarWeight * 10) / 10);
           setOKOutputValue($psCornVal,Math.round(cornWeight * 10) / 10);
           setOKOutputValue($psDMEVal,Math.round(dmeWeight * 10) / 10);
+          setOKOutputValue($psABVValue,Math.round(abv * 10) / 10);
+          setOKOutput($psABVUnit);
       } else {
         setNAOutputValue($psSugarVal);
         setNAOutputValue($psCornVal);
         setNAOutputValue($psDMEVal);
+        setNAOutputValue($psABVValue);
+        setNAOutput($psABVUnit);
       }
 
     } else {
@@ -713,7 +722,8 @@ function ps() { // priming sugar
       setNAOutputValue($psSugarVal);
       setNAOutputValue($psCornVal);
       setNAOutputValue($psDMEVal);
-
+      setNAOutputValue($psABVValue);
+      setNAOutput($psABVUnit);
     }
 
 }
@@ -1031,13 +1041,21 @@ function getRecalcTimeoutFunc(elementSelector,func) {
 }
 
 function setNAOutputValue($el) {
-  $el.removeClass('hbcResultNA').removeClass('hbcResultOK').addClass('hbcResultNA');
+  setNAOutput($el);
   $el.text('---');
 }
 
+function setNAOutput($el) {
+  $el.removeClass('hbcResultNA').removeClass('hbcResultOK').addClass('hbcResultNA');
+}
+
 function setOKOutputValue($el,value) {
-  $el.removeClass('hbcResultNA').removeClass('hbcResultOK').addClass('hbcResultOK');
+  setOKOutput($el);
   $el.text(value);
+}
+
+function setOKOutput($el) {
+  $el.removeClass('hbcResultNA').removeClass('hbcResultOK').addClass('hbcResultOK');
 }
 
 function convertBrixToGravity(brix) {
