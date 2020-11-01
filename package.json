@@ -1,0 +1,18 @@
+{
+  "name": "homebrewcalc",
+  "version": "2.0.0",
+  "repository": "https://github.com/eithe/Homebrewcalc.git",
+  "author": "eithe <post@eirikh.no>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel serve ./src/index.html",
+    "build": "parcel build  --public-url ./ ./src/index.html",
+    "postbuild": "cp -r ./src/public dist/"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.1"
+  },
+  "dependencies": {
+    "bootstrap-slider": "10.6.2"
+  }
+}

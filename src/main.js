@@ -7,6 +7,15 @@
 * ----------------------------------------------------------------------------
 */
 
+import Slider from 'bootstrap-slider';
+import 'bootstrap-slider/dist/css/bootstrap-slider.min.css';
+import HBCConverter from './lib/hbcconverter';
+
+var hopsSchedulerSlider = null;
+var hopsSchedulerInterval = null;
+var hopsSchedulerSeconds = 0;
+var audioInitialized = false;
+
 $().ready(function () {
 
   // sidebar nav click
@@ -22,8 +31,8 @@ $().ready(function () {
   });
 
   // check stored isMetric local storage value and set to non-metric if metric is false
-  var storedisMetric = Lockr.get("metric", true);
-  if (!storedisMetric) {
+  var storedisMetric = localStorage.getItem("metric");
+  if (storedisMetric === "false") {
     switchUnits();
   }
 
@@ -51,7 +60,7 @@ $().ready(function () {
       $('.hbcUSBtn').removeClass("btn-default").addClass("btn-success");
     }
 
-    Lockr.set("metric", isMetric()); // store for next visit!
+    localStorage.setItem("metric", isMetric()); // store for next visit!
 
     // reset all calc values
     setNAOutputValue($('.hbcResult'));
@@ -383,28 +392,13 @@ $().ready(function () {
   var ccEBCChangeHandler = function () { ccEBC(); }
   $('#CCEBCInput').on(events, ccEBCChangeHandler);
 
-
-  // setup sound for hops scheduler
-  ion.sound({
-    sounds: [
-      {
-        name: "bell_ring"
-      }
-    ],
-    volume: 1,
-    path: "files/",
-    preload: true,
-    multiplay: true,
-  });
-
   // hops scheduler buttons
 
   $('#HopsSchedulerStartBtn').on('click touchend', startHopsScheduler);
-  $('#HopsSchedulerPauseBtn').click(pauseHopsScheduler);
+  $('#HopsSchedulerPauseBtn').click(pauseHopsScheduler).hide();
   $('#HopsSchedulerStopBtn').click(stopHopsSchedulerHandler);
 
-  // slider for hops time
-  $('#HopsSchedulerBoilTimeInput').slider({
+  hopsSchedulerSlider = new Slider('#HopsSchedulerBoilTimeInput', {
     formatter: function (value) {
       return 'Total boil time: ' + value + ' min';
     },
@@ -414,11 +408,26 @@ $().ready(function () {
   });
 });
 
-var hopsSchedulerInterval = null;
-var hopsSchedulerSeconds = 0;
-
 function startHopsScheduler() {
+  if (!audioInitialized) {
+    // setup sound for hops scheduler
+    ion.sound({
+      sounds: [
+        {
+          name: "bell_ring"
+        }
+      ],
+      volume: 1,
+      path: "public/",
+      preload: true,
+      multiplay: true,
+    });
+    audioInitialized = true;
+  }
+
   if (!hopsSchedulerInterval) { // only start if it's not already running
+    $('#HopsSchedulerStartBtn').hide();
+    $('#HopsSchedulerPauseBtn').show();
     ion.sound.play("bell_ring");
     var $elapHourSpan = $('#HopsSchedulerElapHoursSpan');
     var $elapMinSpan = $('#HopsSchedulerElapMinutesSpan');
@@ -463,9 +472,7 @@ function startHopsScheduler() {
         $remainHourSpan.text(padZero(remainHours));
         $remainMinSpan.text(padZero(parseInt((remainSeconds - remainHours * 3600) / 60)));
         $remainSecSpan.text(padZero(remainSeconds % 60));
-
       }
-
     }
   }
 
@@ -475,11 +482,15 @@ function hopsScheduleReached($el) {
   $el.data("elapsed", true);
   $el.closest("tr").addClass("success");
   ion.sound.play("bell_ring");
+  $('#HopsSchedulerPauseBtn').hide();
+  $('#HopsSchedulerStartBtn').show().text("Start");
 }
 
 function pauseHopsScheduler() {
   clearInterval(hopsSchedulerInterval);
   hopsSchedulerInterval = null;
+  $('#HopsSchedulerPauseBtn').hide();
+  $('#HopsSchedulerStartBtn').show().text("Resume");
 }
 
 function stopHopsSchedulerHandler() {
@@ -500,10 +511,13 @@ function stopHopsScheduler(resetDisplay) {
   }
   $('.hbcHopsSchedulerTimeInput').data("elapsed", false).closest("tr").removeClass("success");
   $('.hbcHopsSchedulerHeaderRow').removeClass("info");
+
+  $('#HopsSchedulerPauseBtn').hide();
+  $('#HopsSchedulerStartBtn').show().text("Start");
 }
 
 function getHopsSchedulerBoilTime() {
-  return $('#HopsSchedulerBoilTimeInput').slider('getValue');
+  return hopsSchedulerSlider.getValue();
 }
 
 function padZero(val) {
@@ -635,7 +649,7 @@ function ms() { // mash size
   var grainWeight = getGenericNumberVal($('#MSGrainWeightInput'));
   var mashTickness = getGenericNumberVal($('#MSMashTicknessInput'));
 
-  $msVal = $('#MSCalcValue');
+  var $msVal = $('#MSCalcValue');
 
   if (grainWeight && mashTickness) {
     var totalSize = 0;
@@ -658,7 +672,7 @@ function mi() { // mash infusion
   var currentTemp = getTemp($('#MICurrentTempInput'));
   var targetTemp = getTemp($('#MITargetTempInput'));
 
-  $miVal = $('#MICalcValue');
+  var $miVal = $('#MICalcValue');
 
   if (grainWeight && waterVolume && addWaterTemp && currentTemp && targetTemp) {
     var addWaterVolume = (targetTemp - currentTemp) * ((.41 * grainWeight) + waterVolume) / (addWaterTemp - targetTemp);
@@ -676,8 +690,8 @@ function tsv() { // tun size volume
   var tunHeight = getLength($('#TSVHeightInput'));
   var adj = getPercent($('#TSDeadSpaceInput')) || 0;
 
-  $tsVal = $('#TSVCalcValue');
-  $tsHeightVal = $('#TSHeightCalcValue');
+  var $tsVal = $('#TSVCalcValue');
+  var $tsHeightVal = $('#TSHeightCalcValue');
 
   if (tunRadius && tunHeight) {
     var totalVolume = (1 - adj) * (3.1415 * Math.pow(tunRadius, 2) * tunHeight) / 1000;
@@ -726,9 +740,9 @@ function acg(disableBrixSet) {
   var og = getGenericNumberVal($('#ACOGInput'));
   var sg = getGenericNumberVal($('#ACSGInput'));
 
-  $acgVal = $('#ACCalcValue');
-  $acbOGEl = $('#ACOGBrixInput');
-  $acbSGEl = $('#ACSGBrixInput');
+  var $acgVal = $('#ACCalcValue');
+  var $acbOGEl = $('#ACOGBrixInput');
+  var $acbSGEl = $('#ACSGBrixInput');
 
   if (!disableBrixSet && og)
     setInputValue($acbOGEl, Math.round(convertGravityToBrix(og) * 100) / 100);
@@ -747,8 +761,8 @@ function acb() {
   var ogBrix = getGenericNumberVal($('#ACOGBrixInput'));
   var sgBrix = getGenericNumberVal($('#ACSGBrixInput'));
 
-  $acgOGEl = $('#ACOGInput');
-  $acgSGEl = $('#ACSGInput');
+  var $acgOGEl = $('#ACOGInput');
+  var $acgSGEl = $('#ACSGInput');
 
   if (ogBrix)
     setInputValue($acgOGEl, Math.round(convertBrixToGravity(ogBrix) * 1000) / 1000);
@@ -763,12 +777,12 @@ function ps() { // priming sugar
   var beerTemp = getTemp($('#PSTempInput'));
   var wantedCO2 = getGenericNumberVal($('#PSVolumesInput')) || 0;
 
-  $psResidualCO2 = $('#PSBeerCO2CalcValue');
-  $psABVValue = $('#PSABVCalcValue');
-  $psABVUnit = $('#PSABVCalcUnit');
-  $psSugarVal = $('#PSSugarCalcValue');
-  $psCornVal = $('#PSCornCalcValue');
-  $psDMEVal = $('#PSDMECalcValue');
+  var $psResidualCO2 = $('#PSBeerCO2CalcValue');
+  var $psABVValue = $('#PSABVCalcValue');
+  var $psABVUnit = $('#PSABVCalcUnit');
+  var $psSugarVal = $('#PSSugarCalcValue');
+  var $psCornVal = $('#PSCornCalcValue');
+  var $psDMEVal = $('#PSDMECalcValue');
 
   if ((beerTemp || beerTemp == 0)) {
     var beerCO2 = 3.0378 - (0.050062 * HBCConverter.CtoF(beerTemp)) + (0.00026555 * Math.pow(HBCConverter.CtoF(beerTemp), 2));
@@ -812,8 +826,8 @@ function kc() { // keg carbonation
   var kegTemp = getTemp($('#KCTempInput'));
   var wantedCO2 = getGenericNumberVal($('#KCVolumesInput')) || 0;
 
-  $kcVal = $('#KCCalcValue');
-  $kcBarVal = $('#KCBarCalcValue');
+  var $kcVal = $('#KCCalcValue');
+  var $kcBarVal = $('#KCBarCalcValue');
 
   if ((kegTemp || kegTemp == 0) && wantedCO2) {
     kegTempFahrenheit = HBCConverter.CtoF(kegTemp); // I didn't convert this formula to use Celcius so just convert the temp to Fahrenheit first
@@ -831,7 +845,7 @@ function lb() { // line balancing
   var height = getLength($('#LBHeightInput')) || 0;
   var resistance = getGenericNumberVal($('#LBResistanceSelect'));
 
-  $lbVal = $('#LBCalcValue');
+  var $lbVal = $('#LBCalcValue');
 
   if (kegPressure && height && resistance) {
     resistance = HBCConverter.PsiToBar(HBCConverter.FtToMFraction(resistance)); // convert psi/ft to bar/m
@@ -850,7 +864,7 @@ function ht() { // hydrometer temp.
   var temp = getTemp($('#HTTempInput'));
   var calTemp = getTemp($('#HTCalTempInput')) || 0;
 
-  $htVal = $('#HTCalcValue');
+  var $htVal = $('#HTCalcValue');
 
   if (sg && temp && calTemp) {
     var corrSG = sg * ((1.00130346 - 0.000134722124 * ((temp * 9 / 5) + 32) + 0.00000204052596 * Math.pow((temp * 9 / 5) + 32, 2) - 0.00000000232820948 * Math.pow((temp * 9 / 5) + 32, 3)) / (1.00130346 - 0.000134722124 * ((calTemp * 9 / 5) + 32) + 0.00000204052596 * Math.pow((calTemp * 9 / 5) + 32, 2) - 0.00000000232820948 * Math.pow((calTemp * 9 / 5) + 32, 3)));
@@ -886,7 +900,7 @@ function st() { // strike temp
   var mashVolume = getVolume($('#STMashVolumeInput'));
   var mashTemp = getTemp($('#STMashTempInput'));
 
-  $stVal = $('#STCalcValue');
+  var $stVal = $('#STCalcValue');
 
   if (grainWeight && grainTemp && mashVolume && mashTemp) {
     var strikeTemp = 0.0;
@@ -908,7 +922,7 @@ function wh() {
   var waterVolume = getVolume($('#WHVolumeInput'));
   var power = getGenericNumberVal($('#WHPowerInput'));
 
-  $whVal = $('#WHCalcValue');
+  var $whVal = $('#WHCalcValue');
 
   if ((initTemp || initTemp == 0) && desiredTemp && waterVolume && power) {
     var heatingTime = 0.0;
@@ -925,7 +939,7 @@ function dlw() {
   var desiredGravity = getGenericNumberVal($('#DLWDesiredGravityInput'));
   var wortVolume = getVolume($('#DLWVolumeInput'));
 
-  $dlVal = $('#DLWCalcValue');
+  var $dlVal = $('#DLWCalcValue');
 
   if (initGravity && desiredGravity && wortVolume) {
     initGravity -= 1;
@@ -945,7 +959,7 @@ function dlg() {
   var wortVolume = getVolume($('#DLGInitVolumeInput'));
   var targetWolume = getVolume($('#DLGTargetVolumeInput'));
 
-  $dlgVal = $('#DLGCalcValue');
+  var $dlgVal = $('#DLGCalcValue');
 
   if (initGravity && targetWolume && wortVolume) {
     initGravity -= 1;
@@ -961,8 +975,8 @@ function rag() {
   var og = getGenericNumberVal($('#RAGOGInput'));
   var corrFactor = getGenericNumberVal($('#RAWortFactorInput'));
 
-  $ragVal = $('#RAGCalcValue');
-  $ragAlcVal = $('#RAGAlcCalcValue');
+  var $ragVal = $('#RAGCalcValue');
+  var $ragAlcVal = $('#RAGAlcCalcValue');
 
   if (sg && og && corrFactor) {
     var sgBrix = convertGravityToBrix(sg);
@@ -984,8 +998,8 @@ function rab() {
   var ogBrix = getGenericNumberVal($('#RABOGInput'));
   var corrFactor = getGenericNumberVal($('#RAWortFactorInput'));
 
-  $rabVal = $('#RABCalcValue');
-  $rabAlcVal = $('#RABAlcCalcValue');
+  var $rabVal = $('#RABCalcValue');
+  var $rabAlcVal = $('#RABAlcCalcValue');
 
   if (sgBrix && ogBrix && corrFactor) {
     var corrSG = 1 - 0.0044993 * (ogBrix / corrFactor) + 0.0117741 * (sgBrix / corrFactor) + 0.000275806 * Math.pow(ogBrix / corrFactor, 2) - 0.00127169 * Math.pow(sgBrix / corrFactor, 2) - 0.00000727999 * Math.pow(ogBrix / corrFactor, 3) + 0.0000632929 * Math.pow(sgBrix / corrFactor, 3);
@@ -1003,7 +1017,7 @@ function rab() {
 
 function bgBtoG() {
   var brix = getGenericNumberVal($('#BGBrixInput'));
-  $bgVal = $('#BGBrixToGravityCalcValue');
+  var $bgVal = $('#BGBrixToGravityCalcValue');
 
   if (brix) {
     var gravity = convertBrixToGravity(brix);
@@ -1015,7 +1029,7 @@ function bgBtoG() {
 
 function bgGtoB() {
   var gravity = getGenericNumberVal($('#BGGravityInput'));
-  $bgVal = $('#BGGravityToBrixCalcValue');
+  var $bgVal = $('#BGGravityToBrixCalcValue');
 
   if (gravity) {
     var brix = convertGravityToBrix(gravity);
@@ -1113,7 +1127,7 @@ function setInputValidation($element, val) {
 
 function getRecalcTimeoutFunc(elementSelector, func) {
   return function () {
-    $el = $(elementSelector);
+    var $el = $(elementSelector);
     $el.removeClass('hbcResultOK').addClass('hbcResultNA');
     $el.text('---');
     setTimeout(func, 200);
@@ -1152,52 +1166,4 @@ function getAlcohol(fg, og) {
 
 function isMetric() {
   return $('.hbcMetricBtn.btn-lg').hasClass('btn-success');
-}
-
-var HBCConverter = {
-  KgToLb: function (kg) {
-    return kg * 2.2046;
-  },
-  LbToKg: function (lb) {
-    return lb / 2.2046;
-  },
-  FtoC: function (fahr) {
-    return (fahr - 32) / 1.8000;
-  },
-  CtoF: function (celcius) {
-    return (celcius * 1.8000) + 32.00;
-  },
-  LtoGal: function (liters) {
-    return liters * 0.26417;
-  },
-  GalToL: function (gals) {
-    return gals / 0.26417;
-  },
-  CmToInch: function (cm) {
-    return cm * 0.39370;
-  },
-  InchToCm: function (inch) {
-    return inch / 0.39370;
-  },
-  MtoFt: function (m) {
-    return m / 0.3048;
-  },
-  FtToM: function (ft) {
-    return ft * 0.3048;
-  },
-  FtToMFraction: function (ft) {
-    return ft * (1 / 0.3048);
-  },
-  GToOz: function (grams) {
-    return grams * 0.035274;
-  },
-  OzToG: function (oz) {
-    return oz / 0.035274;
-  },
-  PsiToBar: function (psi) {
-    return 0.0689475729 * psi;
-  },
-  BarToPsi: function (bar) {
-    return bar / 0.0689475729;
-  }
 }

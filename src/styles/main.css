@@ -177,10 +177,6 @@ body {
     text-align:left;
 }
 
-.slider-selection {
-	background: #BABABA;
-}
-
 .slider.slider-horizontal {
   width: 90%;
   margin-left: 20px;
