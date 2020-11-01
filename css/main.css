@@ -213,13 +213,14 @@ body {
 
 .nav-sidebar .divider.disabled a {
     color: #666;
+    font-weight: bold;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .nav>li.disabled>a:hover, .nav>li.disabled>a:focus {
   color: #333;
-  cursor: default; !important;
+  cursor: default !important;
 }
 
 /** /end navbar divider */
