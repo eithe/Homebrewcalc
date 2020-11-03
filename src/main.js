@@ -9,7 +9,7 @@
 
 import Slider from 'bootstrap-slider';
 import 'bootstrap-slider/dist/css/bootstrap-slider.min.css';
-import HBCConverter from './lib/hbcconverter';
+import UnitConverter from './lib/UnitConverter';
 
 var hopsSchedulerSlider = null;
 var hopsSchedulerInterval = null;
@@ -89,9 +89,9 @@ $().ready(function () {
         var $val = $(this).val();
         if ($val) {
           if (isMetric()) {
-            $(this).val(Math.round(HBCConverter.LbToKg($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.LbToKg($val) * 100) / 100);
           } else {
-            $(this).val(Math.round(HBCConverter.KgToLb($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.KgToLb($val) * 100) / 100);
           }
         }
       });
@@ -115,9 +115,9 @@ $().ready(function () {
         var $val = $(this).val();
         if ($val) {
           if (isMetric()) {
-            $(this).val(Math.round(HBCConverter.OzToG($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.OzToG($val) * 100) / 100);
           } else {
-            $(this).val(Math.round(HBCConverter.GToOz($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.GToOz($val) * 100) / 100);
           }
         }
       });
@@ -141,9 +141,9 @@ $().ready(function () {
         var $val = $(this).val();
         if ($val || $val === 0) {
           if (isMetric()) {
-            $(this).val(Math.round(HBCConverter.FtoC($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.FtoC($val) * 100) / 100);
           } else {
-            $(this).val(Math.round(HBCConverter.CtoF($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.CtoF($val) * 100) / 100);
           }
         }
       });
@@ -167,9 +167,9 @@ $().ready(function () {
         var $val = $(this).val();
         if ($val) {
           if (isMetric()) {
-            $(this).val(Math.round(HBCConverter.GalToL($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.GalToL($val) * 100) / 100);
           } else {
-            $(this).val(Math.round(HBCConverter.LtoGal($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.LtoGal($val) * 100) / 100);
           }
         }
       });
@@ -194,9 +194,9 @@ $().ready(function () {
         var $val = $(this).val();
         if ($val) {
           if (isMetric()) {
-            $(this).val(Math.round(HBCConverter.InchToCm($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.InchToCm($val) * 100) / 100);
           } else {
-            $(this).val(Math.round(HBCConverter.CmToInch($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.CmToInch($val) * 100) / 100);
           }
         }
       });
@@ -221,9 +221,9 @@ $().ready(function () {
         var $val = $(this).val();
         if ($val) {
           if (isMetric()) {
-            $(this).val(Math.round(HBCConverter.FtToM($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.FtToM($val) * 100) / 100);
           } else {
-            $(this).val(Math.round(HBCConverter.MtoFt($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.MtoFt($val) * 100) / 100);
           }
         }
       });
@@ -248,9 +248,9 @@ $().ready(function () {
         var $val = $(this).val();
         if ($val) {
           if (isMetric()) {
-            $(this).val(Math.round(HBCConverter.PsiToBar($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.PsiToBar($val) * 100) / 100);
           } else {
-            $(this).val(Math.round(HBCConverter.BarToPsi($val) * 100) / 100);
+            $(this).val(Math.round(UnitConverter.BarToPsi($val) * 100) / 100);
           }
         }
       });
@@ -538,8 +538,8 @@ function wcGram() {
 
   if (gram) {
     var kg = gram / 1000;
-    var oz = HBCConverter.GToOz(gram);
-    var lb = HBCConverter.KgToLb(kg);
+    var oz = UnitConverter.GToOz(gram);
+    var lb = UnitConverter.KgToLb(kg);
     setInputValue($kgEl, Math.round(kg * 1000) / 1000);
     setInputValue($ozEl, Math.round(oz * 100) / 100);
     setInputValue($lbEl, Math.round(lb * 100) / 100);
@@ -556,8 +556,8 @@ function wcKilogram() {
 
   if (kg) {
     var gram = kg * 1000;
-    var oz = HBCConverter.GToOz(gram);
-    var lb = HBCConverter.KgToLb(kg);
+    var oz = UnitConverter.GToOz(gram);
+    var lb = UnitConverter.KgToLb(kg);
     setInputValue($gramEl, Math.round(gram * 1000) / 1000);
     setInputValue($ozEl, Math.round(oz * 100) / 100);
     setInputValue($lbEl, Math.round(lb * 100) / 100);
@@ -573,9 +573,9 @@ function wcOz() {
   var oz = getGenericNumberVal($ozEl);
 
   if (oz) {
-    var gram = HBCConverter.OzToG(oz);
+    var gram = UnitConverter.OzToG(oz);
     var kg = gram / 1000;
-    var lb = HBCConverter.KgToLb(kg);
+    var lb = UnitConverter.KgToLb(kg);
     setInputValue($kgEl, Math.round(kg * 1000) / 1000);
     setInputValue($gramEl, Math.round(gram * 10) / 10);
     setInputValue($lbEl, Math.round(lb * 100) / 100);
@@ -591,9 +591,9 @@ function wcLb() {
   var lb = getGenericNumberVal($lbEl);
 
   if (lb) {
-    var kg = HBCConverter.LbToKg(lb);
+    var kg = UnitConverter.LbToKg(lb);
     var gram = kg * 1000;
-    var oz = HBCConverter.GToOz(gram);
+    var oz = UnitConverter.GToOz(gram);
     setInputValue($kgEl, Math.round(kg * 1000) / 1000);
     setInputValue($ozEl, Math.round(oz * 100) / 100);
     setInputValue($gramEl, Math.round(gram * 10) / 10);
@@ -677,7 +677,7 @@ function mi() { // mash infusion
   if (grainWeight && waterVolume && addWaterTemp && currentTemp && targetTemp) {
     var addWaterVolume = (targetTemp - currentTemp) * ((.41 * grainWeight) + waterVolume) / (addWaterTemp - targetTemp);
     if (!isMetric()) {
-      addWaterVolume = HBCConverter.LtoGal(addWaterVolume);
+      addWaterVolume = UnitConverter.LtoGal(addWaterVolume);
     }
     setOKOutputValue($miVal, Math.round(addWaterVolume * 100) / 100)
   } else {
@@ -699,8 +699,8 @@ function tsv() { // tun size volume
     if (isMetric()) {
       heightPerUnit = tunHeight / totalVolume;
     } else {
-      totalVolume = HBCConverter.LtoGal(totalVolume);
-      heightPerUnit = HBCConverter.CmToInch(tunHeight) / totalVolume;
+      totalVolume = UnitConverter.LtoGal(totalVolume);
+      heightPerUnit = UnitConverter.CmToInch(tunHeight) / totalVolume;
     }
     setOKOutputValue($tsVal, Math.round(totalVolume * 100) / 100);
     setOKOutputValue($tsHeightVal, Math.round(heightPerUnit * 100) / 100);
@@ -785,7 +785,7 @@ function ps() { // priming sugar
   var $psDMEVal = $('#PSDMECalcValue');
 
   if ((beerTemp || beerTemp == 0)) {
-    var beerCO2 = 3.0378 - (0.050062 * HBCConverter.CtoF(beerTemp)) + (0.00026555 * Math.pow(HBCConverter.CtoF(beerTemp), 2));
+    var beerCO2 = 3.0378 - (0.050062 * UnitConverter.CtoF(beerTemp)) + (0.00026555 * Math.pow(UnitConverter.CtoF(beerTemp), 2));
     setOKOutputValue($psResidualCO2, Math.round(beerCO2 * 100) / 100);
     if (beerVol && wantedCO2) {
       var sugarWeight = (wantedCO2 - beerCO2) * beerVol / 0.25;
@@ -794,9 +794,9 @@ function ps() { // priming sugar
       var abv = (sugarWeight / beerVol) / 17;
 
       if (!isMetric()) {
-        sugarWeight = HBCConverter.GToOz(sugarWeight);
-        cornWeight = HBCConverter.GToOz(cornWeight);
-        dmeWeight = HBCConverter.GToOz(dmeWeight);
+        sugarWeight = UnitConverter.GToOz(sugarWeight);
+        cornWeight = UnitConverter.GToOz(cornWeight);
+        dmeWeight = UnitConverter.GToOz(dmeWeight);
       }
       setOKOutputValue($psSugarVal, Math.round(sugarWeight * 10) / 10);
       setOKOutputValue($psCornVal, Math.round(cornWeight * 10) / 10);
@@ -830,10 +830,10 @@ function kc() { // keg carbonation
   var $kcBarVal = $('#KCBarCalcValue');
 
   if ((kegTemp || kegTemp == 0) && wantedCO2) {
-    kegTempFahrenheit = HBCConverter.CtoF(kegTemp); // I didn't convert this formula to use Celcius so just convert the temp to Fahrenheit first
+    kegTempFahrenheit = UnitConverter.CtoF(kegTemp); // I didn't convert this formula to use Celcius so just convert the temp to Fahrenheit first
     var kegPressure = -16.6999 - 0.0101059 * kegTempFahrenheit + 0.00116512 * Math.pow(kegTempFahrenheit, 2) + 0.173354 * kegTempFahrenheit * wantedCO2 + 4.24267 * wantedCO2 - 0.0684226 * Math.pow(wantedCO2, 2);
     setOKOutputValue($kcVal, Math.round(kegPressure * 10) / 10);
-    setOKOutputValue($kcBarVal, Math.round(HBCConverter.PsiToBar(kegPressure) * 100) / 100);
+    setOKOutputValue($kcBarVal, Math.round(UnitConverter.PsiToBar(kegPressure) * 100) / 100);
   } else {
     setNAOutputValue($kcVal);
     setNAOutputValue($kcBarVal);
@@ -848,10 +848,10 @@ function lb() { // line balancing
   var $lbVal = $('#LBCalcValue');
 
   if (kegPressure && height && resistance) {
-    resistance = HBCConverter.PsiToBar(HBCConverter.FtToMFraction(resistance)); // convert psi/ft to bar/m
-    var lineLength = (kegPressure - HBCConverter.PsiToBar(1) - (height * 0.113)) / resistance;
+    resistance = UnitConverter.PsiToBar(UnitConverter.FtToMFraction(resistance)); // convert psi/ft to bar/m
+    var lineLength = (kegPressure - UnitConverter.PsiToBar(1) - (height * 0.113)) / resistance;
     if (!isMetric()) {
-      lineLength = HBCConverter.MtoFt(lineLength);
+      lineLength = UnitConverter.MtoFt(lineLength);
     }
     setOKOutputValue($lbVal, Math.round(lineLength * 100) / 100);
   } else {
@@ -885,7 +885,7 @@ function ha() { // hops alpha acid
   if (hopsWeight && hopsAlpha && hopsActualAlpha) {
     var hopsActualWeight = (hopsWeight * hopsAlpha) / hopsActualAlpha;
     if (!isMetric()) {
-      hopsActualWeight = HBCConverter.GToOz(hopsActualWeight);
+      hopsActualWeight = UnitConverter.GToOz(hopsActualWeight);
     }
     setOKOutputValue($haVal, Math.round(hopsActualWeight * 10) / 10);
   } else {
@@ -906,7 +906,7 @@ function st() { // strike temp
     var strikeTemp = 0.0;
     strikeTemp = (mashTemp * (mashVolume + (0.41 * grainWeight)) - (0.41 * grainWeight * grainTemp)) / mashVolume;
     if (!isMetric()) {
-      strikeTemp = HBCConverter.CtoF(strikeTemp);
+      strikeTemp = UnitConverter.CtoF(strikeTemp);
     }
 
     setOKOutputValue($stVal, Math.round(strikeTemp * 10) / 10);
@@ -946,7 +946,7 @@ function dlw() {
     desiredGravity -= 1;
     var addWater = (initGravity * wortVolume / desiredGravity) - wortVolume;
     if (!isMetric()) {
-      addWater = HBCConverter.LtoGal(addWater);
+      addWater = UnitConverter.LtoGal(addWater);
     }
     setOKOutputValue($dlVal, Math.round(addWater * 100) / 100);
   } else {
@@ -1048,9 +1048,9 @@ function getWeight($element) {
   var val = parseFloat($element.val(), 10);
   if (!isMetric()) {
     if ($element.hasClass('hbcKiloInput')) {
-      val = HBCConverter.LbToKg(val);
+      val = UnitConverter.LbToKg(val);
     } else if ($element.hasClass('hbcGramInput')) {
-      val = HBCConverter.OzToG(val);
+      val = UnitConverter.OzToG(val);
     }
   }
 
@@ -1060,7 +1060,7 @@ function getWeight($element) {
 
 function getVolume($element) {
   var val = parseFloat($element.val(), 10);
-  val = isMetric() ? val : HBCConverter.GalToL(val);
+  val = isMetric() ? val : UnitConverter.GalToL(val);
   setInputValidation($element, val);
   return val;
 }
@@ -1068,7 +1068,7 @@ function getVolume($element) {
 function getTemp($element) {
   var val = parseFloat($element.val(), 10);
   if (!isMetric()) {
-    val = HBCConverter.FtoC(val);
+    val = UnitConverter.FtoC(val);
   }
   setInputValidation($element, val);
   return val;
@@ -1077,7 +1077,7 @@ function getTemp($element) {
 function getPressure($element) {
   var val = parseFloat($element.val(), 10);
   if (!isMetric()) {
-    val = HBCConverter.PsiToBar(val);
+    val = UnitConverter.PsiToBar(val);
   }
   setInputValidation($element, val);
   return val;
@@ -1087,9 +1087,9 @@ function getLength($element) {
   var val = parseFloat($element.val(), 10);
   if (!isMetric()) {
     if ($element.hasClass('hbcLengthCmInput')) {
-      val = HBCConverter.InchToCm(val);
+      val = UnitConverter.InchToCm(val);
     } else if ($element.hasClass('hbcLengthMInput')) {
-      val = HBCConverter.FtToM(val);
+      val = UnitConverter.FtToM(val);
     }
   }
   setInputValidation($element, val);

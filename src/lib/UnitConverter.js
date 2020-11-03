@@ -1,4 +1,4 @@
- const HBCConverter = {
+ const UnitConverter = {
   KgToLb: function (kg) {
       return kg * 2.2046;
   },
@@ -46,4 +46,4 @@
   }
 }
 
-export default HBCConverter;
+export default UnitConverter;
